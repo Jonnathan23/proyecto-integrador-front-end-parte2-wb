@@ -1,0 +1,28 @@
+<main>
+    <div class="cont">
+        <section class="cont--two--section">
+            <h3 class="cont--two--title">Nuestros libros disponibles</h3>
+            <!--
+                <div class="cont--search">
+                    <input class="search--book" type="text" name="txtSearch" id="" placeholder="Buscar libro">
+                </div>
+            -->
+        </section>
+        <div class="cont--books">
+            @for (book of books; track books) {
+            <div class="book">
+                <div class="book--content">
+                    <h3> {{book.name}}</h3>                    
+                    <p>Autor: {{book.autor}}</p>
+                </div>
+                <div class="book--img">
+                    <img src="{{book.image}}" alt="{{book.name}}">                    
+                </div>
+                <div>
+                    <p>{{book.description}}</p>
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+</main>

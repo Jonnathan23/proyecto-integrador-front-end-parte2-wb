@@ -1,0 +1,62 @@
+@use '../../../styles/variables' as *;
+
+/* MAIN */
+main {        
+    background-image: linear-gradient(to top, $degradado_azul_bot 0%, $degradado_azul_top 100%);    
+}
+
+.cont{
+    width: 90%;    
+    margin: auto;
+    padding: 3rem 2rem;
+
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    
+}
+
+.cont__biblioteca p{
+    text-align: justify;
+}
+@media (min-width:480px) {
+    .cont{
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+        column-gap: 2rem;
+    }
+}
+@media (min-width:780px) {
+    .cont{
+        display: grid;
+        grid-template-columns:65% 35%;
+        column-gap: 2rem;
+    }
+}
+
+.cont__atribuciones{
+    background-color: $fondoItem;
+    padding: 2rem 1rem;
+
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.cont__atribuciones h2{
+    width: 85%;
+    margin: auto;
+
+    background-color: $bt_color;
+    text-align: center;
+    padding: 1rem 0;
+}
+
+.cont__atribuciones ul{
+    list-style: none;
+}
+
+.cont__atribuciones li{
+    margin-bottom: 1rem;
+}

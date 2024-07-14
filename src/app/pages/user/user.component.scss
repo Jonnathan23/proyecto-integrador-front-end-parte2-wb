@@ -1,0 +1,157 @@
+@use '../../../styles/variables' as *;
+
+main {
+    background-image: linear-gradient(to top, $degradado_azul_bot 0%, $degradado_azul_top 100%);
+   
+}
+
+.cont_admin {
+    width: 90%;
+    margin: auto;
+}
+
+.form-container {
+    width: 90%;
+    margin:2rem auto;
+    background-color: $fondoItem;
+    padding: 2rem;
+
+    box-shadow: 13px 20px 17px 3px rgba(0, 0, 0, .53);
+
+}
+
+fieldset {
+    border: none;
+}
+
+fieldset legend {
+    font-size: 3rem;
+    font-family: $fuente;
+    font-weight: bold;
+    margin-bottom: 2rem;
+}
+
+.cont__campos {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    justify-content: center;
+    align-items: center;
+}
+
+.campo {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.campo__txt {
+    width: 80%;
+    margin: auto;
+    padding: 1rem;
+
+    background-color: $azul_oscuro;
+    color: $blanco;
+
+    border: none;
+}
+
+.campo:nth-child(6) {
+    flex-direction: row;
+    gap: 1.5rem;
+}
+
+.change__img {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+@media(min-width:480px) {
+    .campo {
+        display: grid;
+        grid-template-columns: 20% 80%;
+        height: 4rem;
+    }
+
+    .campo__txtn label {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+@media (min-width:780px) {
+    .cont__campos {
+        display: grid;
+        grid-template-columns: 50% 50%;
+    }
+
+    .change__img {
+        grid-column: 2/3;
+        grid-row: 1/6;
+
+    }
+
+}
+
+/*IMG */
+.change__cont__img {
+    display: flex;
+    justify-content: center;
+}
+
+.change__cont__img img {
+    border-radius: 50%;
+    width: 60%;
+}
+
+/** Botones */
+.campo__select__img {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+}
+
+.lb {
+    display: block;
+    text-align: center;
+    width: 100%;
+}
+
+.bt {
+    background-color: $bt_color;
+    color: $blanco;
+    font-family: $fuente;
+
+    padding: 1.5rem 2.5rem;
+    border: none;
+    transition: background-color .3s ease, transform .3s ease;
+}
+
+.select {
+    display: none;
+}
+
+.bt:hover {
+    cursor: pointer;
+    background-color: $bt_color_selected;
+    transform: scale(1.075);
+}
+
+.admin {
+    display: block;
+}
+
+.admin:hover {
+    cursor: pointer;
+}

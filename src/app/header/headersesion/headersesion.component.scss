@@ -1,0 +1,101 @@
+@use '../../../styles/variables' as *;
+/** BROWSER */
+header {    
+    display: grid;
+    grid-template-columns: 40% 60%;
+    padding: 3rem 2.5rem;
+    gap: 1rem;
+}
+
+header h1 {
+    text-align: left;
+    color: $blanco;
+}
+
+.nav--main {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: end;
+}
+
+.nav--main a {
+    color: $blanco;
+    text-decoration: none;
+    padding: 1rem;
+    transition: background-color .3s ease;
+}
+
+.frame {
+    border: $blanco solid .1rem;
+}
+
+.nav--main a:hover {
+    cursor: pointer;
+    background-color: rgba($color: $blanco, $alpha: .60);
+    border-radius: .3rem;
+}
+
+@media(min-width:480px) {
+    .nav--main {
+        flex-direction: row;
+        justify-content: space-around;
+    }
+
+}
+
+/* WELCOME */
+
+.img-back {
+    background-image: url('../../../assets/img/biblioteca.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 50rem;
+
+    display: grid;
+    grid-template-rows: 30% 70%;
+
+}
+
+.cont--welcome {
+
+    width: 80%;
+    height: 100%;
+    margin: auto;
+}
+
+.cont--welcome--text {
+    width: 90%;
+    height: 100%;
+
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+
+    gap: 1.5rem;
+
+}
+
+.cont--welcome--text h2,
+.cont--welcome--text p {
+    color: $blanco;
+    text-align: justify;
+}
+
+@media(min-width:480px) {
+    .img-back {
+        grid-template-rows: 20% 80%;
+    }
+
+    .cont--welcome--text {
+        width: 60%;
+    }
+
+    .cont--welcome--text h2,
+    .cont--welcome--text p {
+        width: 60%;
+    }
+
+}

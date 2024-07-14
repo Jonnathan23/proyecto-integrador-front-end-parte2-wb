@@ -1,0 +1,22 @@
+@use '../../styles/variables' as *;
+
+footer{
+    
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    background-color: $degradado_azul_top;
+    padding: 3rem 0;
+}
+
+footer .copy{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $blanco;
+
+}
+
+footer .social{
+    display: flex;
+    justify-content: space-evenly;
+}

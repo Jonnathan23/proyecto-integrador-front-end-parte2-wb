@@ -1,0 +1,69 @@
+<div class="background">
+    <section class="cont">
+        <h2>Administrar</h2>
+        <form class="formulary" action="">
+            <fieldset>
+                <legend>Datos del libro</legend>
+
+                <div class="contenedor-campos">
+                    <div class="campo ">
+                        <label for="">Nombre</label>
+                        <input class="input__text" class="campo__dato" type="text" placeholder="Nombre del libro" #name>
+                    </div>
+                    <!--Autor-->
+                    <div class="campo">
+                        <label for="">Autor</label>
+                        <input class="input__text" class="campo__dato" type="text" placeholder="Nombre del libro"
+                            #autor>
+
+                    </div>
+
+
+                    <div class="campo ">
+                        <label for="">Descripción</label>
+                        <textarea class="input__text" class="campo__dato" name="" id="" cols="30" rows="5"
+                            #description></textarea>
+                    </div>
+
+                    <!--Categorias-->
+                    <div class="campo ">
+                        <label for="">Categorias</label>
+                        <select (change)="selectCategory($event)" name="" id="" #cbCategory>
+                            <option disabled selected [value]="cbText">{{cbText}}</option>
+
+                            @for (cat of ourCategories; track ourCategories) {
+                            <option value="{{cat.title}}">{{cat.title}}</option>
+                            }
+                        </select>
+                    </div>
+
+
+                    <div class="campo campo__bt">
+                        <label class="lb--selec" for="selectImg">Subir imagen</label>
+                        <input class="selec" (change)="selectImg($event, book_img)" type="file" name="photo"
+                            id="selectImg" accept="image/*">
+                    </div>
+
+                    <div class="img__selected">
+                        <img src="assets/img/selectImage.jpg" alt="sala" #book_img>
+                    </div>
+                    @if (isAddingBook) {
+
+                    <div class="campo__bt submit">
+                        <input (click)="saveBook()" class="bt" type="button" value="Guardar libro">
+                    </div>
+
+                    }@else{
+                    <div class="campo__bt submit">
+                        <input (click)="updateBook()" class="bt" type="button" value="Guardar cambios">
+                    </div>
+                    }
+                    <div class="campo__bt__cancelar">
+                        <input (click)="clearInputs()" class="bt__cancelar" type="button" value="Cancelar">
+                    </div>
+
+                </div>
+            </fieldset>
+        </form>
+    </section>
+</div>

@@ -1,1 +1,34 @@
 /* You can add global styles to this file, and also import other style files */
+@use 'styles/variables' as *;
+:root {
+    --blanco: #fff;
+    --oscuro: #212121;
+    --primario: #FFC107;
+    --secundario: #0097A7;
+    --gris: #757575;
+}
+
+/* Reicio para que 1rem = 10px*/
+html {
+    font-size: 62.5%;
+    box-sizing: border-box;
+    scroll-snap-type: y mandatory;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+
+body {
+    font-size: 16px;
+    padding: 0;
+    margin: 0;
+    background-color: $azul_oscuro;    
+}
+
+h1,h2,h3,h4,h5,h6,p,a,fieldset,label{
+    font-family: $fuente;
+    color: $blanco;
+}

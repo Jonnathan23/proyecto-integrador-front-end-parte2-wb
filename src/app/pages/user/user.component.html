@@ -1,0 +1,71 @@
+<main>
+    <div class="cont__admin">
+        @if(myUser.admin){
+        <app-useradmin />
+        }
+    </div>
+    
+    <!--Seccion de datos-->
+    <div class="form-container">
+
+        <form>
+            <fieldset>
+                <legend>Datos id</legend>
+                <p>id: {{userModify.idUser}}</p>
+                <div class="cont__campos">
+                    <div class="campo">
+                        <label for="nombre">Nombre: </label>
+                        <input class="campo__txt" type="text" id="nombre" name="nombre" required #name
+                            [(ngModel)]="nombre">
+
+                    </div>
+
+                    <div class="campo">
+                        <label for="apellido">Apellido: </label>
+                        <input class="campo__txt" type="text" id="apellido" name="apellido" required #lastname
+                            [(ngModel)]="apellido">
+                    </div>
+
+                    <div class="campo">
+                        <label for="cell">Celular: </label>
+                        <input class="campo__txt" type="email" id="cell" name="cell" required #cellphone
+                            [(ngModel)]="cell">
+                    </div>
+
+                    <div class="campo">
+                        <label for="correo">Correo Electrónico: </label>
+                        <input class="campo__txt" type="email" id="correo" name="correo" required #email
+                            [(ngModel)]="correo">
+                    </div>
+
+                    <div class="campo">
+                        <label for="contrasena">Contraseña: </label>
+                        <input class="campo__txt" type="password" id="contrasena" name="contrasena" required #password
+                            [(ngModel)]="myPassword">
+                    </div>
+
+                    <div class="campo">
+                        <label for="admin">Es administrador: </label>
+                        <!--<input class="admin" (change)="isAdmin($event)" class="campo__check" type="checkbox" id="admin"
+                            name="admin" #checkIsAdmin>-->
+                        <input class="admin" class="campo__check" type="checkbox" id="admin" name="admin" #checkIsAdmin>
+                    </div>
+
+                    <div class="change__img">
+                        <div class="change__cont__img">
+                            <img src="assets/img/imageUser.jpg" alt="" #userImg>
+                        </div>
+                        <div class="campo__select__img">
+                            <div>
+                                <label class="bt lb" for="selectPhoto">Seleccionar foto</label>
+                                <input (change)="selectImg($event, userImg)" class="campo__bt select" type="file"
+                                    name="selectPhoto" id="selectPhoto">
+                            </div>
+                            <input (click)="saveChanges()" class="bt" type="submit" value="Guardar Cambios">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</main>

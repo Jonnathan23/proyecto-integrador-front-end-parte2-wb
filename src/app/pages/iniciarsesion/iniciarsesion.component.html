@@ -1,0 +1,21 @@
+<main>
+    <div class="form-container">
+        <h2>Iniciar Sesión</h2>
+        <form (submit)="login(miFormulario)"  #miFormulario="ngForm">
+            <div class="campo">
+                <label for="username">Email</label>
+                <input name="email" type="email" id="username" required #email="ngModel" ngModel>
+            </div>
+
+            <div class="campo">
+                <label for="password">Password</label>
+                <input name="password" type="password" id="password" required #password="ngModel" ngModel>
+            </div>
+
+            <div class="campo">
+                <button class="campo__bt" type="submit">Ingresar</button>
+                <a routerLink="/registrarse" class="campo__iniciar">Registrarse</a>
+            </div>
+        </form>
+    </div>
+</main>
