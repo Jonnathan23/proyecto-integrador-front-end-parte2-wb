@@ -98,6 +98,14 @@ export function errorSave() {
     })
 }
 
+export function connectionError(info: string){
+    Swal.fire({
+        title:'Error al conectar',
+        text:`Error: ${info}`,
+        icon: 'error'
+    })
+}
+
 
 /**
  * @description Confirmar Borrar un libro
