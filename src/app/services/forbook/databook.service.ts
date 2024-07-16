@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
-import { AdminBook } from '../../../assets/models/models';
+import { AdminBook, BookType } from '../../../assets/models/models';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError, tap } from 'rxjs/operators';
-import { booksData } from '../../../assets/data/books';
 import { ConnectionError } from '../../../errors/errors'
 
 @Injectable({
@@ -36,29 +35,25 @@ export class DatabookService {
   }
 
 
-  createBook(book: AdminBook) {
+  async createBook(book: BookType) {
     return this.http.post(`${this.url}/books`, book).pipe(
       tap(() => this.loadBooks()),
       catchError(this.handleError)
     )
   }
 
-  updateBook(book: AdminBook) {
+  async updateBook(book: AdminBook) {
     return this.http.put(`${this.url}/books`, book).pipe(
       tap(() => this.loadBooks()),
       catchError(this.handleError)
     )
   }
 
-  deleteBook(id: number) {
+  async deleteBook(id: number) {
     return this.http.delete(`${this.url}/books?id=${id}`).pipe(
       tap(() => this.loadBooks()),
       catchError(this.handleError)
     )
-  }
-
-  getBookArray() {
-    return [...booksData]
   }
 
   private handleError(error: HttpErrorResponse): Observable<never> {

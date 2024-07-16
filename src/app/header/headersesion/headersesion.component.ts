@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { LoginserviceService } from '../../services/foruser/loginservice.service';
 
 @Component({
   selector: 'app-headersesion',
@@ -10,8 +11,10 @@ import { RouterLink } from '@angular/router';
 })
 export class HeadersesionComponent {
 
+  constructor(private loginService:LoginserviceService){}
+
   back() {
-   
+    this.loginService.back()
   }
 
 }

@@ -2,8 +2,10 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { UseradminComponent } from '../useradmin/useradmin.component';
 import { UserType } from '../../../assets/models/models';
-import { shortPassword, errorInputs } from '../../../alerts/alerts';
+import { shortPassword, errorInputs, modifyUser, errorSave } from '../../../alerts/alerts';
 import { ErrorShortPassword } from '../../../errors/errors';
+import { DatauserService } from '../../services/foruser/datauser.service';
+import { SelecteduserService } from '../../services/foruser/selecteduser.service';
 
 @Component({
   selector: 'app-user',
@@ -24,6 +26,8 @@ export class UserComponent {
   myPassword = ''
   @ViewChild('checkIsAdmin') checkAdmin!: ElementRef;
   @ViewChild('userImg') imgUser!: ElementRef;
+
+  constructor(private userService:DatauserService, private selectedUserService: SelecteduserService){}
 
   selectImg(e: Event, img: HTMLImageElement) {
     const input = e.target as HTMLInputElement
@@ -70,10 +74,15 @@ export class UserComponent {
   }
   
   /**
-   * TODO falta el 'userService'
+   * 
    */
   saveChanges() {
-    const isVerify = this.checkInputs()    
+    const isVerify = this.checkInputs()
+    if(isVerify)  {
+      this.userService.updateUser(this.userModify)
+      .then(() => modifyUser())
+      .catch(() => errorSave())
+    }
     
   }
 

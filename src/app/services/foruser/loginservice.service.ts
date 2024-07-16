@@ -3,7 +3,6 @@ import { BehaviorSubject, map, Observable, tap } from 'rxjs';
 import { LoginUser, UserType } from '../../../assets/models/models';
 import { Router } from '@angular/router';
 import { LocalstorageService } from '../../storage/localstorage.service';
-import { HttpClient } from '@angular/common/http';
 import { DatauserService } from './datauser.service';
 import { errorSave, userExist } from '../../../alerts/alerts';
 import { SelecteduserService } from './selecteduser.service';
@@ -41,6 +40,7 @@ export class LoginserviceService {
           this.localStorageService.setItem(this.keyUser, user);
           this.userActive.next(user)
           this.selectedUser.setSelectedUser(user)
+
           this.router.navigate(['/adminbooks'])
         }
         , error: (e) => errorSave()
@@ -76,6 +76,17 @@ export class LoginserviceService {
     )
   }
 
+  /**
+   * TODO falta el cerrar sesión con el Token
+   */
+  back() {
+    this.localStorageService.clear()
+    this.localStorageService.setItem(this.keyUser, this.userRestart)
+    this.userActive.next(this.userRestart);
+    this.selectedUser.setSelectedUser(this.userRestart)
+    this.router.navigate(['/bienvenido']);
+  }
+
 
 
   /**
@@ -94,5 +105,9 @@ export class LoginserviceService {
 
   getUserRestart() {
     return this.userRestart;
+  }
+
+  getUserActive() {
+    return this.userActive$
   }
 }

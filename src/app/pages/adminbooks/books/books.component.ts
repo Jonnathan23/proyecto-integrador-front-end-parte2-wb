@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { BookType } from '../../../../assets/models/models';
-import { booksData } from '../../../../assets/data/books';
+import { AdminBook, BookType } from '../../../../assets/models/models';
+import { DatabookService } from '../../../services/forbook/databook.service';
 
 @Component({
   selector: 'app-books',
@@ -10,9 +10,10 @@ import { booksData } from '../../../../assets/data/books';
   styleUrl: './books.component.scss'
 })
 export class BooksComponent {
-  books: BookType[] = [];
+  books: AdminBook[] = [];
 
-  ngOnInit(){
-    this.books = [...booksData]
+  constructor(private bookService: DatabookService) { }
+  ngOnInit() {
+    this.bookService.getBooks().subscribe((books) => this.books = books)
   }
 }

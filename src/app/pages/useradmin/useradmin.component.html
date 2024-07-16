@@ -1,1 +1,24 @@
-<p>useradmin works!</p>
+<div class="admin">
+    <div class="admin__cont">
+        <section class="cont__main">
+            <h3 class="cont__title">Lista de usuarios</h3>
+            <div class="cont__users">
+                @for (user of users; track user) {
+                <button (click)="selectedUser(user)" class="users">
+                    <div class="user--content">
+                        <h3 class="user--Nombre"> {{user.name}}</h3>
+                    </div>
+
+                    <div class="user--img">
+                        <img src="{{user.image}}" alt="{{user.name}}">
+                    </div>
+
+                    <div class="book__bts">
+                    </div>
+
+                </button>
+                }
+            </div>
+        </section>
+    </div>
+</div>

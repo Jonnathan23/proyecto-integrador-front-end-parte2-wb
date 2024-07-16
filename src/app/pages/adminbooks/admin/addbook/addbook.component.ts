@@ -1,7 +1,9 @@
 import { Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
 import { categories } from '../../../../../assets/data/categorias';
-import { AdminBook } from '../../../../../assets/models/models';
-import { errorInputs } from '../../../../../alerts/alerts';
+import { AdminBook, BookType } from '../../../../../assets/models/models';
+import { errorInputs, errorModifyBook, errorSave, modifyBook, saveBook } from '../../../../../alerts/alerts';
+import { SelectedbookService } from '../../../../services/forbook/selectedbook.service';
+import { DatabookService } from '../../../../services/forbook/databook.service';
 
 @Component({
   selector: 'app-addbook',
@@ -38,8 +40,16 @@ export class AddbookComponent {
     category: ""
   }
 
-  constructor(private render: Renderer2) {
-    //this.cbText = selectedBookService.getCbText()
+  constructor(private render: Renderer2, private selectedBookService: SelectedbookService, private bookService: DatabookService) {
+    this.cbText = selectedBookService.getCbText()
+  }
+
+  ngOnInit() {
+    this.selectedBookService.getSelectedBook().subscribe((book) => {
+      this.book = book
+      this.isAddingBook = !this.book.id ? true : false
+      setTimeout(() => this.fillData(this.book), 0)
+    })
   }
 
 
@@ -70,9 +80,7 @@ export class AddbookComponent {
     this.book.category = category.value
   }
 
-  /**
-   * @description Obtiene la informacion de todos los campos del formulario
-   */
+  /** @description Obtiene la informacion de todos los campos del formulario  */
   getAllContInputs() {
     this.book.name = this.txtName.nativeElement.value
     this.book.autor = this.txtAutor.nativeElement.value
@@ -93,9 +101,7 @@ export class AddbookComponent {
     this.render.setProperty(this.imgBook.nativeElement, 'src', book.image)
   }
 
-  /**
-   * @description Reinicia los campos del formulario
-   */
+  /** @description Reinicia los campos del formulario */
   clearInputs() {
     this.defaultImage = 'assets/img/selectImage.jpg'
     this.render.setProperty(this.txtName.nativeElement, 'value', "")
@@ -123,29 +129,36 @@ export class AddbookComponent {
     return true
   }
 
-  /**
-   * TODO: falta el 'bookService'
-   * @description Guarda la información del libro a nuestra BD
-   */
+  /** @description Guarda la información del libro a nuestra BD */
   saveBook() {
     this.getAllContInputs()
     const isValidate = this.checkInputs()
-    if (isValidate) {
 
-      this.clearInputs()
+    if (isValidate) {
+      const newBook = this.book as BookType
+      this.bookService.createBook(newBook)
+        .then(() => {
+          saveBook()
+          this.clearInputs()
+        })
+        .catch(() => errorSave())
+
     } else {
       errorInputs()
 
     }
   }
 
-  /**
-   * TODO: falta el 'bookService'
-   * @description Actualiza la información del libro a nuestra BD
-   */
+  /** @description Actualiza la información del libro a nuestra BD */
   updateBook() {
     this.getAllContInputs()
     const isValidate = this.checkInputs()
+
+    if (isValidate) {
+      this.bookService.updateBook(this.book)
+      .then(() => modifyBook())
+      .catch(() => errorModifyBook())
+    }
 
   }
 }

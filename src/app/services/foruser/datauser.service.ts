@@ -35,7 +35,7 @@ export class DatauserService {
       )
   }
 
-  async getUsers() {
+  getUsers() {
     return this.http.get<UserType[]>(`${this.url}/users`)
       .pipe(
         tap((users) => this.usersSubject.next(users)),

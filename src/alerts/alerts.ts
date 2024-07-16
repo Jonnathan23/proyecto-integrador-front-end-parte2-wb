@@ -1,11 +1,9 @@
 import Swal from "sweetalert2"
-import { BookType } from "../assets/models/models"
+import { AdminBook, BookType } from "../assets/models/models"
 
 
 //* Libros
-/**
- * @description alerta para el guardado exitosamente
- */
+/** @description alerta para el guardado exitosamente */
 export function saveBook() {
     Swal.fire({
         title: 'Se ha guardado con exito',
@@ -14,14 +12,7 @@ export function saveBook() {
     })
 }
 
-/**
- * * 
- * ! No pose validacion para nulo
- * ? No entiendo el camino del objeto
- * TODO: falta la validaciion
- * * Falta esto
- * @description Alerta de modificacion exitosa del libro
- */
+/** @description Alerta de modificacion exitosa del libro*/
 export function modifyBook() {
     Swal.fire({
         title: 'Modificado correctamente',
@@ -32,9 +23,7 @@ export function modifyBook() {
 }
 
 
-/**
- * @description Alerta de error al modificar el libro
- */
+/** @description Alerta de error al modificar el libro */
 export function errorModifyBook() {
     Swal.fire({
         title: 'Error al modificar el libro',
@@ -45,9 +34,7 @@ export function errorModifyBook() {
 }
 
 //* Borrar
-/**
- * @description alerta para informar de que se ha eliminado correctamente
- */
+/** @description alerta para informar de que se ha eliminado correctamente */
 export function deleteSuccess() {
     Swal.fire({
         title: 'Eliminado',
@@ -73,9 +60,7 @@ export function errorDelete() {
 
 
 // Campos de agregar libro vacios
-/**
- * @description Alerta para formulario con error por campos vacios
- */
+/** @description Alerta para formulario con error por campos vacios */
 export function errorInputs() {
     Swal.fire({
         title: `Error al guardar`,
@@ -86,9 +71,7 @@ export function errorInputs() {
 }
 
 // Error de guardar en la BD
-/**
- * @description Alerta de error al guardar pero en la BD
- */
+/** @description Alerta de error al guardar pero en la BD */
 export function errorSave() {
     Swal.fire({
         title: `Error al guardar`,
@@ -108,11 +91,11 @@ export function connectionError(info: string){
 
 
 /**
- * @description Confirmar Borrar un libro
+ * @description Alerta que espera una confirmación
  * @param bookDelete 
  * @returns Promesa<Boolean>
  */
-export async function confirmDelete(bookDelete: BookType): Promise<boolean> {
+export async function confirmDelete(bookDelete: AdminBook): Promise<boolean> {
     const result = await Swal.fire({
         title: 'Eliminar',
         text: `Está seguro que desea eliminar el libro ${bookDelete.name}`,

@@ -51,10 +51,9 @@ export class AdminComponent {
   async delete(bookDelete: AdminBook) {
     const isConfirmed = await confirmDelete(bookDelete)
     if (isConfirmed) {
-      this.bookService.deleteBook(bookDelete.id).subscribe({
-        next: () => deleteSuccess()
-        , error: (err: any) => errorDelete()
-      })
+      this.bookService.deleteBook(bookDelete.id)
+        .then(() => deleteSuccess())
+        .catch(() => errorDelete())
     }
   }
 
