@@ -20,7 +20,11 @@ export class AdminComponent {
   constructor(private selectedBookService: SelectedbookService, private bookService: DatabookService) { }
 
   ngOnInit() {
-    this.bookService.getBooks().subscribe((books) => this.books = books)
+    //this.bookService.getBooks().subscribe((books) => this.books = books)
+    this.bookService.getBooks().subscribe({
+      next: (books) => this.books = books
+      ,error: () => this.books = []
+    })
   }
 
   /**
@@ -51,9 +55,12 @@ export class AdminComponent {
   async delete(bookDelete: AdminBook) {
     const isConfirmed = await confirmDelete(bookDelete)
     if (isConfirmed) {
-      this.bookService.deleteBook(bookDelete.id)
-        .then(() => deleteSuccess())
-        .catch(() => errorDelete())
+      this.bookService.deleteBook(bookDelete.id).subscribe({
+        next: () => deleteSuccess()
+        , error: () => errorDelete()
+      })
+
+
     }
   }
 

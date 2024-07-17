@@ -27,7 +27,7 @@ export class UserComponent {
   @ViewChild('checkIsAdmin') checkAdmin!: ElementRef;
   @ViewChild('userImg') imgUser!: ElementRef;
 
-  constructor(private userService:DatauserService, private selectedUserService: SelecteduserService){}
+  constructor(private userService: DatauserService, private selectedUserService: SelecteduserService) { }
 
   selectImg(e: Event, img: HTMLImageElement) {
     const input = e.target as HTMLInputElement
@@ -72,18 +72,20 @@ export class UserComponent {
       return false
     }
   }
-  
+
   /**
    * 
    */
   saveChanges() {
     const isVerify = this.checkInputs()
-    if(isVerify)  {
-      this.userService.updateUser(this.userModify)
-      .then(() => modifyUser())
-      .catch(() => errorSave())
+    if (isVerify) {
+      this.userService.updateUser(this.userModify).subscribe({
+        next: () => modifyUser()
+        , error: () => errorSave()
+      })
+
     }
-    
+
   }
 
 

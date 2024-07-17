@@ -14,6 +14,10 @@ export class BooksComponent {
 
   constructor(private bookService: DatabookService) { }
   ngOnInit() {
-    this.bookService.getBooks().subscribe((books) => this.books = books)
+    //this.bookService.getBooks().subscribe((books) => this.books = books)
+    this.bookService.getBooks().subscribe({
+      next: (books) => this.books = books
+      ,error: () => this.books = []
+    })
   }
 }

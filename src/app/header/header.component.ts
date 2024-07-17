@@ -17,14 +17,15 @@ export class HeaderComponent {
   constructor(private loginService: LoginserviceService) { }
 
   ngOnInit() {
-    this.loginService.getUserActive().subscribe((user) => {
+    this.loginService.getUserActive().subscribe((user) => {      
       const userLocal = this.loginService.getUserStorage()!;
-
+      
       if (userLocal.idUser) {
         this.ingreso = true;
       } else {
         this.ingreso = user.idUser ? true : false;
       }
+        
     })
   }
 
