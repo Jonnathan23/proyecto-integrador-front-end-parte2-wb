@@ -136,12 +136,13 @@ export class AddbookComponent {
 
     if (isValidate) {
       const newBook = this.book as BookType
-      this.bookService.createBook(newBook)
-        .then(() => {
+      this.bookService.createBook(newBook).subscribe({
+        next: () => {
           saveBook()
           this.clearInputs()
-        })
-        .catch(() => errorSave())
+        }
+        , error: () => errorSave()
+      })
 
     } else {
       errorInputs()
@@ -155,9 +156,10 @@ export class AddbookComponent {
     const isValidate = this.checkInputs()
 
     if (isValidate) {
-      this.bookService.updateBook(this.book)
-      .then(() => modifyBook())
-      .catch(() => errorModifyBook())
+      this.bookService.updateBook(this.book).subscribe({
+        next: () => modifyBook()
+        ,error: () => errorModifyBook()
+      })        
     }
 
   }

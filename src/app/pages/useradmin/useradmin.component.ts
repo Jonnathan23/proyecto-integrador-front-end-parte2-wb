@@ -17,8 +17,11 @@ export class UseradminComponent {
 
   constructor(private userService: DatauserService, private selectedUserService: SelecteduserService) { }
 
-  ngOnInit(){    
-    this.userService.getUsers().subscribe(users => this.users = users)
+  ngOnInit(){        
+    this.userService.getUsers().subscribe({
+      next: users => this.users = users
+      ,error: () => this.users = []
+    })    
   }
 
   selectedUser(user:UserType){

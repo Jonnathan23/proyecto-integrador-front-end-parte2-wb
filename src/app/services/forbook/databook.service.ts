@@ -18,11 +18,12 @@ export class DatabookService {
   }
 
   private loadBooks() {
+    
     this.http.get<AdminBook[]>('')
       .pipe(
         tap((books) => this.booksSubject.next(books)),
         catchError(this.handleError)
-      ).subscribe()
+      )//.subscribe()
   }
 
   getBooks() {
@@ -35,21 +36,21 @@ export class DatabookService {
   }
 
 
-  async createBook(book: BookType) {
+  createBook(book: BookType) {
     return this.http.post(`${this.url}/books`, book).pipe(
       tap(() => this.loadBooks()),
       catchError(this.handleError)
     )
   }
 
-  async updateBook(book: AdminBook) {
+  updateBook(book: AdminBook) {
     return this.http.put(`${this.url}/books`, book).pipe(
       tap(() => this.loadBooks()),
       catchError(this.handleError)
     )
   }
 
-  async deleteBook(id: number) {
+  deleteBook(id: number) {
     return this.http.delete(`${this.url}/books?id=${id}`).pipe(
       tap(() => this.loadBooks()),
       catchError(this.handleError)
