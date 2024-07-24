@@ -6,11 +6,11 @@
                 @for (user of users; track user) {
                 <button (click)="selectedUser(user)" class="users">
                     <div class="user--content">
-                        <h3 class="user--Nombre"> {{user.name}}</h3>
+                        <h3 class="user--Nombre"> {{user.us_name}}</h3>
                     </div>
 
                     <div class="user--img">
-                        <img src="{{user.image}}" alt="{{user.name}}">
+                        <img src="{{user.us_image}}" alt="{{user.us_name}}">
                     </div>
 
                     <div class="book__bts">

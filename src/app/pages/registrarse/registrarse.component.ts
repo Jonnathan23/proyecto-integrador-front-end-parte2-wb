@@ -45,12 +45,12 @@ export class RegistrarseComponent {
 
     if (isVerify) {
       const { name, lastname, cell, email, password,checkIsAdmin } = form.value;
-      this.newUser.name = name;
-      this.newUser.lastname = lastname;
-      this.newUser.email = email;
-      this.newUser.cell = cell;
-      this.newUser.password = password;
-      this.newUser.admin = checkIsAdmin;
+      this.newUser.us_name = name;
+      this.newUser.us_lastname = lastname;
+      this.newUser.us_email = email;
+      this.newUser.us_cell = cell;
+      this.newUser.us_password = password;
+      this.newUser.us_admin = checkIsAdmin;
             
       
       return;

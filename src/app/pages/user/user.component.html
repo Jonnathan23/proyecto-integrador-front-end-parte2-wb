@@ -1,6 +1,6 @@
 <main>
     <div class="cont__admin">
-        @if(myUser.admin){
+        @if(myUser.us_admin){
         <app-useradmin />
         }
     </div>
@@ -11,7 +11,7 @@
         <form>
             <fieldset>
                 <legend>Datos id</legend>
-                <p>id: {{userModify.idUser}}</p>
+                <p>id: {{userModify.us_id}}</p>
                 <div class="cont__campos">
                     <div class="campo">
                         <label for="nombre">Nombre: </label>

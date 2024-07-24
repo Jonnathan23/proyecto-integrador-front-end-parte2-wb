@@ -9,17 +9,17 @@
             -->
         </section>
         <div class="cont--books">
-            @for (book of books; track books) {
+            @for (b of books; track b) {
             <div class="book">
-                <div class="book--content">
-                    <h3> {{book.name}}</h3>                    
-                    <p>Autor: {{book.autor}}</p>
+                <div class="book--content">                    
+                    <h3> {{b.boo_name}}</h3>                    
+                    <p>Autor: {{b.boo_autor}}</p>
                 </div>
                 <div class="book--img">
-                    <img src="{{book.image}}" alt="{{book.name}}">                    
+                    <img src="{{b.boo_image}}" alt="{{b.boo_name}}">                    
                 </div>
                 <div>
-                    <p>{{book.description}}</p>
+                    <p>{{b.boo_description}}</p>
                 </div>
             </div>
             }

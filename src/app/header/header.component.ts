@@ -20,10 +20,10 @@ export class HeaderComponent {
     this.loginService.getUserActive().subscribe((user) => {      
       const userLocal = this.loginService.getUserStorage()!;
       
-      if (userLocal.idUser) {
+      if (userLocal.us_id) {
         this.ingreso = true;
       } else {
-        this.ingreso = user.idUser ? true : false;
+        this.ingreso = user.us_id ? true : false;
       }
         
     })

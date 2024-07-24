@@ -11,50 +11,40 @@ import { ConnectionError } from '../../../errors/errors'
 export class DatabookService {
   private booksSubject = new BehaviorSubject<AdminBook[]>([]);
   books$: Observable<AdminBook[]> = this.booksSubject.asObservable();
-  url = ''
+  url = 'http://localhost:8080/proyectobackend/bl-sv'
 
-  constructor(private http: HttpClient) {
-    this.loadBooks
+  constructor(private http: HttpClient) {    
   }
-
+/*
   private loadBooks() {
     
-    this.http.get<AdminBook[]>('')
+    this.http.get<AdminBook[]>(this.url)
       .pipe(
         tap((books) => this.booksSubject.next(books)),
         catchError(this.handleError)
       )//.subscribe()
   }
-
+*/
   getBooks() {
-    return this.http.get<AdminBook[]>(`${this.url}/books`)
-      .pipe(
-        tap((books) => this.booksSubject.next(books)),
-        catchError(this.handleError)
-      )
+    return this.http.get<AdminBook[]>(`${this.url}/books`)     
 
   }
 
 
   createBook(book: BookType) {
-    return this.http.post(`${this.url}/books`, book).pipe(
-      tap(() => this.loadBooks()),
-      catchError(this.handleError)
-    )
+    return this.http.post(`${this.url}`, book)
   }
 
   updateBook(book: AdminBook) {
-    return this.http.put(`${this.url}/books`, book).pipe(
-      tap(() => this.loadBooks()),
-      catchError(this.handleError)
-    )
+    return this.http.put(`${this.url}`, book)    
   }
 
   deleteBook(id: number) {
-    return this.http.delete(`${this.url}/books?id=${id}`).pipe(
-      tap(() => this.loadBooks()),
-      catchError(this.handleError)
-    )
+    return this.http.delete(`${this.url}/${id}`)
+  }
+
+  listBooks(){
+    return this.books$
   }
 
   private handleError(error: HttpErrorResponse): Observable<never> {

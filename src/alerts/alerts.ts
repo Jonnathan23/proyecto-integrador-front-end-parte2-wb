@@ -98,7 +98,7 @@ export function connectionError(info: string){
 export async function confirmDelete(bookDelete: AdminBook): Promise<boolean> {
     const result = await Swal.fire({
         title: 'Eliminar',
-        text: `Está seguro que desea eliminar el libro ${bookDelete.name}`,
+        text: `Está seguro que desea eliminar el libro ${bookDelete.boo_name}`,
         icon: 'question',
         showConfirmButton: true,
         confirmButtonColor: '#ff0000',
@@ -106,7 +106,7 @@ export async function confirmDelete(bookDelete: AdminBook): Promise<boolean> {
         showCancelButton: true,
         cancelButtonText: 'Cancelar',
         cancelButtonColor: '#2F358B',
-        imageUrl: bookDelete.image,
+        imageUrl: bookDelete.boo_image,
         imageWidth: '35rem',
         imageAlt: 'Imagen del libro'
     });

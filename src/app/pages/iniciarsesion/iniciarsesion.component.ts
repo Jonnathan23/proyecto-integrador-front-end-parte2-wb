@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { RouterOutlet, RouterLink } from '@angular/router';
 import { LoginUser } from '../../../assets/models/models';
+import { LoginserviceService } from '../../services/foruser/loginservice.service';
+import { errorSignIn } from '../../../alerts/alerts';
 
 @Component({
   selector: 'app-iniciarsesion',
@@ -11,7 +13,9 @@ import { LoginUser } from '../../../assets/models/models';
   styleUrl: './iniciarsesion.component.scss'
 })
 export class IniciarsesionComponent {
-  loginUser: LoginUser = { email: '', password: '' }
+  loginUser: LoginUser = { us_email: '', us_password: '' }
+
+  constructor(private loginService: LoginserviceService){}
 
   /**
    * TODO: falta el 'loginService'
@@ -19,10 +23,11 @@ export class IniciarsesionComponent {
    */
   login(form: NgForm) {
 
-    const email = form.value.email;
-    const password = form.value.password;
-    
+    this.loginUser.us_email = form.value.email;
+    this.loginUser.us_password = form.value.password;
 
+    this.loginService.loginUser(this.loginUser)
+    
   }
 
 }

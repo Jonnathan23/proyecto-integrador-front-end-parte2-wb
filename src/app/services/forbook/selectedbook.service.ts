@@ -9,9 +9,9 @@ export class SelectedbookService {
   private cbText = 'Seleccione Categoria';
   private srcImageNotFound = 'assets/img/selectImage.jpg'
 
-  private restarBook:AdminBook = { id: 0, name: '', description: '', image: this.srcImageNotFound, autor: '', category: this.cbText }
+  private restarBook: AdminBook = { boo_id: 0, boo_name: '', boo_description: '', boo_image: this.srcImageNotFound, boo_autor: '', boo_category: this.cbText }
   private selectedBook = new BehaviorSubject<AdminBook>(this.restarBook);
-  selectedBook$:Observable<AdminBook> = this.selectedBook.asObservable();
+  selectedBook$: Observable<AdminBook> = this.selectedBook.asObservable();
   constructor() { }
 
   /** 
@@ -19,26 +19,26 @@ export class SelectedbookService {
  * @description setea el libro en el observable de este servicio
  * @param book 
  */
-  setSelectedBook(book:AdminBook){  
-    this.selectedBook.next(book);    
+  setSelectedBook(book: AdminBook) {
+    this.selectedBook.next(book);
   }
-  
+
   /**
    * @description reinicia el valor del libro en el observable
    */
-  resetBook(){    
-    this.selectedBook.next(this.restarBook);    
+  resetBook() {
+    this.selectedBook.next(this.restarBook);
   }
 
-  getRestarBook(){
+  getRestarBook() {
     return this.restarBook;
   }
 
-  getImgNotFound(){
+  getImgNotFound() {
     return this.srcImageNotFound;
   }
 
-  getCbText(){
+  getCbText() {
     return this.cbText;
   }
 
@@ -46,7 +46,7 @@ export class SelectedbookService {
    * 
    * @returns selectedBook$ --> libro que se encuentra actualmente
    */
-  getSelectedBook(){
+  getSelectedBook() {
     return this.selectedBook$
   }
 }

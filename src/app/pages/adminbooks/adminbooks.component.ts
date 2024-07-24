@@ -19,7 +19,7 @@ export class AdminbooksComponent {
   ngOnInit(){
     this.loginService.getUserActive().subscribe((user) => {
       const userLocal = this.loginService.getUserStorage()!; 
-       this.user = userLocal.idUser ? userLocal : user;
+       this.user = userLocal.us_id ? userLocal : user;
     })
   }
 }

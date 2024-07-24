@@ -7,7 +7,7 @@ import { UserType } from '../../../assets/models/models';
 })
 export class SelecteduserService {
   private imgDefault = 'assets/img/imageUser.jpg'
-  private inicialUser: UserType = { idUser: 0, name: '', lastname: '', cell: '', email: '', password: '', image: this.imgDefault, admin: false };
+  private inicialUser: UserType = { us_id: 0, us_name: '', us_lastname: '', us_cell: '', us_email: '', us_password: '', us_image: this.imgDefault, us_admin: false };
   private selectedUser = new BehaviorSubject<UserType>(this.inicialUser)
   selectedUser$: Observable<UserType> = this.selectedUser.asObservable();
 

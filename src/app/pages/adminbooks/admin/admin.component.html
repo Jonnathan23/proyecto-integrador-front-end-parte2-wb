@@ -16,19 +16,19 @@
             </button>
 
             <!--Libros-->
-            @for (book of books; track books) {
+            @for (book of books; track book) {
             <div class="book">
                 <div class="book--content">                    
-                    <h3 class="book--title"> {{book.name}}</h3>
-                    <p><span>Autor:</span> {{book.autor}}</p>
+                    <h3 class="book--title"> {{book.boo_name}}</h3>
+                    <p><span>Autor:</span> {{book.boo_autor}}</p>
                 </div>
 
                 <div class="book--img">
-                    <img src="{{book.image}}" alt="{{book.name}}">
+                    <img src="{{book.boo_image}}" alt="{{book.boo_name}}">
                 </div>
 
                 <div class="book__text">
-                    <p>{{book.description}}</p>
+                    <p>{{book.boo_description}}</p>
                     <div class="book__bts">
                        <!--<input (click)="modifyBook(book)" class="book__bt" type="button" value="Modificar">
                         <input (click)="delete(book)" class="book__bt" type="button" value="Eliminar">-->

@@ -1,14 +1,15 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { AdminBook } from '../../../../assets/models/models';
 import { confirmDelete, deleteSuccess, errorDelete } from '../../../../alerts/alerts';
 import { AddbookComponent } from "./addbook/addbook.component";
 import { SelectedbookService } from '../../../services/forbook/selectedbook.service';
 import { DatabookService } from '../../../services/forbook/databook.service';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-admin',
   standalone: true,
-  imports: [AddbookComponent],
+  imports: [AddbookComponent, ReactiveFormsModule],
   templateUrl: './admin.component.html',
   styleUrl: './admin.component.scss'
 })
@@ -17,14 +18,23 @@ export class AdminComponent {
 
   adminLibrary = true
 
-  constructor(private selectedBookService: SelectedbookService, private bookService: DatabookService) { }
+  constructor(private selectedBookService: SelectedbookService, private bookService: DatabookService, private cd: ChangeDetectorRef) { }
 
   ngOnInit() {
     //this.bookService.getBooks().subscribe((books) => this.books = books)
-    this.bookService.getBooks().subscribe({
-      next: (books) => this.books = books
-      ,error: () => this.books = []
-    })
+    this.getBooks()
+  }
+
+  getBooks(){
+    this.bookService.getBooks().subscribe(
+      data => {
+        this.books = data
+        this.cd.detectChanges()
+      },
+      error => {
+        console.error(error)
+      }
+    )
   }
 
   /**
@@ -55,11 +65,12 @@ export class AdminComponent {
   async delete(bookDelete: AdminBook) {
     const isConfirmed = await confirmDelete(bookDelete)
     if (isConfirmed) {
+      /*
       this.bookService.deleteBook(bookDelete.id).subscribe({
         next: () => deleteSuccess()
         , error: () => errorDelete()
       })
-
+*/
 
     }
   }

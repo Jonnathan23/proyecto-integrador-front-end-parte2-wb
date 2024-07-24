@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { AdminBook, BookType } from '../../../../assets/models/models';
 import { DatabookService } from '../../../services/forbook/databook.service';
 
@@ -12,12 +12,21 @@ import { DatabookService } from '../../../services/forbook/databook.service';
 export class BooksComponent {
   books: AdminBook[] = [];
 
-  constructor(private bookService: DatabookService) { }
+  constructor(private bookService: DatabookService, private cd: ChangeDetectorRef) { }
   ngOnInit() {
     //this.bookService.getBooks().subscribe((books) => this.books = books)
-    this.bookService.getBooks().subscribe({
-      next: (books) => this.books = books
-      ,error: () => this.books = []
-    })
+       this.getBooks()
+  }
+
+  getBooks(){
+    this.bookService.getBooks().subscribe(
+      data => {        
+        this.books = data
+        this.cd.detectChanges()
+      },
+      error => {
+        console.error(error)
+      }
+    ) 
   }
 }

@@ -45,13 +45,13 @@ export class UserComponent {
   }
 
   getAllInputs() {
-    this.userModify.name = this.nombre
-    this.userModify.lastname = this.apellido
-    this.userModify.cell = this.cell
-    this.userModify.email = this.correo
-    this.userModify.password = this.myPassword
-    this.userModify.image = this.imgUser.nativeElement.src
-    this.userModify.admin = this.checkAdmin.nativeElement.checked
+    this.userModify.us_name = this.nombre
+    this.userModify.us_lastname = this.apellido
+    this.userModify.us_cell = this.cell
+    this.userModify.us_email = this.correo
+    this.userModify.us_password = this.myPassword
+    this.userModify.us_image = this.imgUser.nativeElement.src
+    this.userModify.us_admin = this.checkAdmin.nativeElement.checked
   }
 
   checkInputs(): boolean {

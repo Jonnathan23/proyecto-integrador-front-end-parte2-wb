@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, map, Observable, tap } from 'rxjs';
+import { BehaviorSubject, catchError, map, Observable, tap, throwError } from 'rxjs';
 import { LoginUser, UserType } from '../../../assets/models/models';
 import { Router } from '@angular/router';
 import { LocalstorageService } from '../../storage/localstorage.service';
 import { DatauserService } from './datauser.service';
-import { errorSave, userExist } from '../../../alerts/alerts';
+import { errorSave, errorSignIn, userExist } from '../../../alerts/alerts';
 import { SelecteduserService } from './selecteduser.service';
+
 
 @Injectable({
   providedIn: 'root'
@@ -13,9 +14,8 @@ import { SelecteduserService } from './selecteduser.service';
 export class LoginserviceService {
 
   private imgDefault = 'assets/img/imageUser.jpg'
-  private userRestart: UserType = { idUser: 0, name: '', lastname: '', cell: '', email: '', password: '', image: this.imgDefault, admin: false };
+  private userRestart: UserType = { us_id: 0, us_name: '', us_lastname: '', us_cell: '', us_email: '', us_password: '', us_image: this.imgDefault, us_admin: false };
   private keyUser = 'userActive';
-  private url = ''
 
   private userActive = new BehaviorSubject<UserType>(this.userRestart);
   userActive$: Observable<UserType> = this.userActive.asObservable();
@@ -25,17 +25,16 @@ export class LoginserviceService {
     if (!user) {
       this.localStorageService.setItem(this.keyUser, this.userRestart);
 
-    } else if (user.idUser) {
+    } else if (user.us_id) {
       this.router.navigate(['/adminbooks']);
 
     }
   }
 
-
-  async registerUser(user: UserType) {
-    const userFound = this.searchUser(user.email)
+  registerUser(user: UserType) {
+    const userFound = this.searchUser(user.us_email!)
     if (!userFound) {
-      (await this.userService.createUser(user)).subscribe({
+      (this.userService.createUser(user)).subscribe({
         next: () => {
           this.localStorageService.setItem(this.keyUser, user);
           this.userActive.next(user)
@@ -50,20 +49,17 @@ export class LoginserviceService {
     }
   }
 
-  async loginUser(user: LoginUser) {
-
-    this.searchUser(user.email).pipe(
-      tap((userFound) => {
-        if (userFound && user.password === userFound.password) {
-          this.userActive.next(userFound!);
-          this.localStorageService.setItem(this.keyUser, userFound);
-          this.selectedUser.setSelectedUser(userFound)
-
-          this.router.navigate(['/adminbooks']);
-        }
-      })
-    )
+  loginUser(user: LoginUser) {    
+   this.userService.getToken(user).subscribe(
+    data => {
+      console.log(data)
+    }
+   )
+    
+    //const userLoged = this.userService.getLoginUser(token)
+    
   }
+
 
   /**
    * 
@@ -71,9 +67,7 @@ export class LoginserviceService {
    * @returns 
    */
   searchUser(email: string): Observable<UserType | null> {
-    return this.userService.getUser(email).pipe(
-      map((user) => user ? user : null)
-    )
+    return this.userService.getUser(email)
   }
 
   /**
@@ -86,7 +80,6 @@ export class LoginserviceService {
     this.selectedUser.setSelectedUser(this.userRestart)
     this.router.navigate(['/bienvenido']);
   }
-
 
 
   /**
