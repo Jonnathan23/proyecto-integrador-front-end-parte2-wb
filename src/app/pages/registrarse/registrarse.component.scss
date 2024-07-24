@@ -44,10 +44,7 @@ label {
     font-family: $fuente;
 }
 
-input[type="text"],
-input[type="email"],
-input[type="number"],
-input[type="password"] {
+.campo--info{
     margin-bottom: 1rem;
     padding: 1rem;
     border: none;

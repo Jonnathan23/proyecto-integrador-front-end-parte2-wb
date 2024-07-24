@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { UseradminComponent } from '../useradmin/useradmin.component';
 import { UserType } from '../../../assets/models/models';
@@ -6,6 +6,7 @@ import { shortPassword, errorInputs, modifyUser, errorSave } from '../../../aler
 import { ErrorShortPassword } from '../../../errors/errors';
 import { DatauserService } from '../../services/foruser/datauser.service';
 import { SelecteduserService } from '../../services/foruser/selecteduser.service';
+import { LoginserviceService } from '../../services/foruser/loginservice.service';
 
 @Component({
   selector: 'app-user',
@@ -27,7 +28,37 @@ export class UserComponent {
   @ViewChild('checkIsAdmin') checkAdmin!: ElementRef;
   @ViewChild('userImg') imgUser!: ElementRef;
 
-  constructor(private userService: DatauserService, private selectedUserService: SelecteduserService) { }
+  constructor(private render: Renderer2, private userService: DatauserService, private loginService: LoginserviceService, private selectedUserService: SelecteduserService) { }
+
+  ngOnInit(){
+    this.loginService.getUserActive().subscribe((user) => {
+      const userLocal = this.loginService.getUserStorage()!;
+      this.myUser = userLocal.us_id ? userLocal : user;
+    })
+
+
+    this.selectedUserService.getSelectedUser().subscribe((user) => {
+
+      if (user.us_id) {
+        this.userModify = user
+      } else {
+        this.userModify = this.loginService.getUserStorage()!
+      }
+
+      setTimeout(() => {
+        this.nombre = this.userModify.us_name!
+        this.apellido = this.userModify.us_lastname!
+        this.cell = this.userModify.us_cell!
+        this.correo = this.userModify.us_email!
+        this.myPassword = this.userModify.us_password!
+        this.render.setProperty(this.checkAdmin.nativeElement, 'checked', this.userModify.us_admin ?? false)
+        this.render.setProperty(this.imgUser.nativeElement, 'src', this.userModify.us_image)
+
+      }, 0)
+
+    })
+
+  }
 
   selectImg(e: Event, img: HTMLImageElement) {
     const input = e.target as HTMLInputElement

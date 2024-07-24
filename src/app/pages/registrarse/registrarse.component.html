@@ -4,34 +4,34 @@
         <form (submit)="registerNewUser(registerUser)" #registerUser="ngForm">
             <div class="campo">
                 <label for="nombre">Nombre: </label>
-                <input type="text" id="name" name="name" required #name="ngModel" ngModel>
+                <input class="campo--info" type="text" id="name" name="name" required #name="ngModel" ngModel>
 
             </div>
 
             <div class="campo">
                 <label for="apellido">Apellido: </label>
-                <input type="text" id="lastname" name="lastname" required #lastname="ngModel" ngModel>
+                <input class="campo--info" type="text" id="lastname" name="lastname" required #lastname="ngModel" ngModel>
             </div>
 
             <div class="campo">
                 <label for="cell">Celular: </label>
-                <input type="number" id="cell" name="cell" required #cell="ngModel" ngModel>
+                <input class="campo--info" type="number" id="cell" name="cell" required #cell="ngModel" ngModel>
             </div>
 
             <div class="campo">
                 <label for="correo">Correo Electrónico: </label>
-                <input type="email" id="email" name="email" required #email="ngModel" ngModel >
+                <input class="campo--info" type="email" id="email" name="email" required #email="ngModel" ngModel >
             </div>
 
             <div class="campo">
                 <label for="contrasena">Contraseña: </label>
-                <input type="password" id="password" name="password" required #password="ngModel" ngModel >
+                <input class="campo--info" type="password" id="password" name="password" required #password="ngModel" ngModel >
             </div>
 
             <div class="campo">
                 <label for="admin">Es administrador: </label>
                 <!--<input (change)="isAdmin($event)" class="campo__check" type="checkbox" id="checkIsAdmin" name="checkIsAdmin" #checkIsAdmin="ngModel" ngModel >-->
-                <input class="campo__check" type="checkbox" id="checkIsAdmin" name="checkIsAdmin" #checkIsAdmin="ngModel" ngModel >
+                <input class="campo--info" class="campo__check" type="checkbox" id="checkIsAdmin" name="checkIsAdmin" #checkIsAdmin="ngModel" ngModel >
             </div>
 
             <div class="campo">                
