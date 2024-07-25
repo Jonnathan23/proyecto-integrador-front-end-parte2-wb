@@ -51,8 +51,12 @@ export class LoginserviceService {
 
   loginUser(user: LoginUser) {    
    this.userService.getToken(user).subscribe(
-    data => {
-      console.log(data)
+    response => {
+      console.log('Response from login:', response); // Imprimir respuesta      
+      console.log('Token:', response.jwt); // Imprimir token            
+    },
+    error => {      
+      console.error('Login error:', error);
     }
    )
     

@@ -1,0 +1,133 @@
+@use '../../../styles/variables' as *;
+
+main {
+    width: 100%;
+    background-image: linear-gradient(to top, $degradado_azul_top 0%, $degradado_azul_bot);
+
+}
+
+.cont {
+    width: 90%;
+    margin: auto;
+    padding: 2rem;
+}
+
+/* SECTION */
+
+.cont--two--section {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2rem;
+}
+
+.cont--two--title {
+    border-bottom: $azul_claro solid .3rem;
+    padding: 1rem;
+}
+
+.cont--search {
+    width: 100%;
+    padding-left: 2rem;
+}
+
+
+/* HISTORY */
+
+.cont--history {
+    width: 100%;
+    margin: auto;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 3.5rem;
+}
+
+.history {
+    background-color: $fondoItem;
+    box-shadow: 13px 20px 17px 3px rgba(0, 0, 0, .53);
+    padding: 2rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+.history--title {
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+}
+
+
+
+@media(min-width:480px) {
+    .cont--history {
+        flex-direction: row;
+    }
+
+    .history {
+        width: 90%;
+    }
+
+}
+
+.content-text {
+    width: 100%;
+    text-align: center;
+}
+
+.lends--list {
+    list-style: none;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.lends--item {
+    margin: 0;
+    padding: 1rem 0;
+    min-height: 1rem;
+
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    color: $blanco;
+    transition: background-color .1s ease;
+}
+
+.lends--item:hover {
+    background-color: rgba(36, 34, 117, .55);
+}
+
+.book--list {
+    margin: 0;
+    list-style: none;
+}
+
+.book--list--users {
+    margin-left: 1.5rem;
+    background-color: aqua;
+}
+
+
+
+.book--button {
+    background-color: transparent;
+    border: none;
+    transition: opacity .3s ease;
+}
+
+.book--button:hover {
+    cursor: pointer;
+    opacity: .65;
+}

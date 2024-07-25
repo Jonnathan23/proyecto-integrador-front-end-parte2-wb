@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { HeaderbienvenidaComponent } from "./headerbienvenida/headerbienvenida.component";
 import { HeadersesionComponent } from "./headersesion/headersesion.component";
 import { LoginserviceService } from '../services/foruser/loginservice.service';
+import { HeaderuserComponent } from "./headeruser/headeruser.component";
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [HeaderbienvenidaComponent, HeadersesionComponent],
+  imports: [HeaderbienvenidaComponent, HeadersesionComponent, HeaderuserComponent],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })

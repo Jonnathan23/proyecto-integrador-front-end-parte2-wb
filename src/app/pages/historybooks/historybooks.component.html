@@ -1,0 +1,108 @@
+<main>
+    <div class="cont">
+        <section class="cont--two--section">
+            <h3 class="cont--two--title">Historial de </h3>
+        </section>
+        <div class="cont--history">
+            <div class="history">
+                <div class="history--cont--title">
+                    <h3 class="history--title">Préstamos</h3>
+                </div>
+                <div class="history--cont-content">
+                    @if (books.length === 0) {
+                    <p class="content-text">Sin libros</p>
+                    }@else {
+                    <ul class="lends--list">
+                        @for (book of books; track book) {
+                        <li class="lends--item">
+                            <div class="cont--book--list">
+                                <ul class="book--list">
+                                    <li>{{book.boo_name}}</li>
+                                    @if (isBookShown(book.boo_id!)) {
+                                    <app-lendsbooks [book]="book" />
+                                    }
+                                </ul>
+                            </div>
+                            <div class="cont--book--button">
+                                <button class="book--button" (click)="deployContent(book.boo_id!)">
+                                    @if (!isBookShown(book.boo_id!)) {
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        class="icon icon-tabler icon-tabler-arrow-badge-down" width="40" height="40"
+                                        viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                        <path d="M17 13v-6l-5 4l-5 -4v6l5 4z" />
+                                    </svg>
+                                    }@else {
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        class="icon icon-tabler icon-tabler-arrow-badge-up" width="40" height="40"
+                                        viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                        <path d="M17 11v6l-5 -4l-5 4v-6l5 -4z" />
+                                    </svg>
+                                    }
+                                </button>
+
+                            </div>
+
+                        </li>
+                        }
+                    </ul>
+                    }
+                </div>
+            </div>
+
+            <!-- DEVOUCIONES -->
+            <div class="history">
+                <div class="history--cont--title">
+                    <h3 class="history--title">Devoluciones</h3>
+                </div>
+                <div class="history--cont-content">
+                    @if (books.length === 0) {
+                    <p class="content-text">Sin libros</p>
+                    }@else {
+                    <ul class="lends--list">
+                        @for (book of books; track book) {
+                        <li class="lends--item">
+                            <div class="cont--book--list">
+                                <ul class="book--list">
+                                    <li>{{book.boo_name}}</li>
+                                    @if (isBookShown(book.boo_id!)) {
+                                    <app-returnsbooks [book]="book" />
+                                    }
+                                </ul>
+                            </div>
+                            <div class="cont--book--button">
+                                <button class="book--button" (click)="deployContent(book.boo_id!)">
+                                    @if (!isBookShown(book.boo_id!)) {
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        class="icon icon-tabler icon-tabler-arrow-badge-down" width="40" height="40"
+                                        viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                        <path d="M17 13v-6l-5 4l-5 -4v6l5 4z" />
+                                    </svg>
+                                    }@else {
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        class="icon icon-tabler icon-tabler-arrow-badge-up" width="40" height="40"
+                                        viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                        <path d="M17 11v6l-5 -4l-5 4v-6l5 -4z" />
+                                    </svg>
+                                    }
+                                </button>
+
+                            </div>
+
+                        </li>
+                        }
+                    </ul>
+                    }
+                </div>
+            </div>
+
+        </div>
+    </div>
+</main>

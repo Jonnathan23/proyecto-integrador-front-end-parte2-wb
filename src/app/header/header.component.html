@@ -1,5 +1,9 @@
 @if (ingreso) {
-    <app-headersesion/>
-}@else {   
-    <app-headerbienvenida/>
-}
+    @if (true) {
+        <app-headersesion />
+    }@else {
+        <app-headeruser />
+    }
+}@else {
+    <app-headerbienvenida />
+}   

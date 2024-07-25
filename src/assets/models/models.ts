@@ -6,6 +6,7 @@ export class AdminBook {
     boo_image?: string;
     boo_autor?: string;
     boo_category?: string;
+    boo_state?: StateBook['description'];
 }
 
 /** @description Modelo para guardar un nuevo libro que no se ha creado con anterioridad sin la necesidad de colocar el id*/
@@ -44,6 +45,22 @@ export class UserType {
     us_admin?: boolean
 }
 
+export class LendBookHistory {
+    lenboo_id?: number;
+    lenboo_name?: string;
+    lenboo_category?: string;
+    lenboo_nameUser?: string;
+    lenboo_date?: string;
+}
+
+export class ReturnBookHistory {
+    retboo_id?: number;
+    retboo_name?: string;
+    retboo_category?: string;
+    retboo_nameUser?: string;
+    retboo_date?: string;
+}
+
 export type LoginUser = Pick<UserType, 'us_email' | 'us_password'>
 
 //Atribuciones
@@ -54,5 +71,11 @@ export type Atribuciones = {
 }
 
 export class TokenUser {
-    jwt ?: string
+    jwt?: string
+}
+
+export type Dates = {
+    id: number
+    description: string
+    days: number
 }

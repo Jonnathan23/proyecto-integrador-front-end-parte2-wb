@@ -15,18 +15,16 @@ export class DatauserService {
 
   constructor(private http: HttpClient) { }
 
-
   getUser(id: any) {
-    return this.http.get<UserType>(`${this.url}/${id}`)   
+    return this.http.get<UserType>(`${this.url}/${id}`)
   }
 
   getUsers() {
-    return this.http.get<UserType[]>(`${this.url}/users`)
+    return this.http.get<UserType[]>(`${this.url}/users/list-users`)
       .pipe(
         tap((users) => this.usersSubject.next(users)),
         catchError(this.handleError)
       )
-
   }
 
   createUser(user: UserType) {
@@ -47,30 +45,20 @@ export class DatauserService {
     )
   }
 
-  getLoginUser(token:string){
+  getLoginUser(token: string) {
     const id = jwtDecode(token)
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
-    });    
+    });
     //return this.http.get<UserType>(`${this.url}/users/${id}`, {headers})
   }
 
-  getToken(user:LoginUser){    
-    /*return this.http.post<TokenUser>(`${this.url}/auth/login`,user, {
-      headers:new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    }).pipe(
-      catchError(this.handleError)
-    )*/
-
+  getToken(user: LoginUser) {
     return this.http.post<TokenUser>(`${this.url}/auth/login`, user)
   }
 
+  private handleError(error: HttpErrorResponse): Observable<never> {
 
-
-  private handleError(error: HttpErrorResponse): Observable<never> {   
-   
     return throwError(() => new ConnectionError(error.message))
   }
 
