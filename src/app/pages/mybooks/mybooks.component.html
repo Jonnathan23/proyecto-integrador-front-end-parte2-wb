@@ -1,1 +1,48 @@
-<p>mybooks works!</p>
+<main>
+    <div class="cont">
+        <section class="cont--two--section">
+            <h3 class="cont--two--title">Mis libros reservados</h3>
+
+        </section>
+        <div class="cont--books">
+            @if (books.length === 0) {
+            <div class="book">
+                <div class="book--content">
+                    <h3> Sin libros reservados</h3>
+                </div>
+            </div>
+            }@else {
+            @for (book of books; track books) {
+            <div class="book">
+                <div class="book--content">
+                    <h3> {{book.boo_name}}</h3>
+                </div>
+                <div class="book--img">
+                    <img src="{{book.boo_image}}" alt="{{book.boo_name}}">
+                </div>
+                <div class="book__text">
+                    <div class="book__info">
+                        <h4>Categoria:</h4>
+                        <p>{{book.boo_category}}</p>
+                    </div>
+
+                    <div class="book__bts">
+                        <button (click)="returnBook(book)" class="book__bt">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-receipt-refund"
+                                width="32" height="32" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff"
+                                fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path
+                                    d="M5 21v-16a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v16l-3 -2l-2 2l-2 -2l-2 2l-2 -2l-3 2" />
+                                <path d="M15 14v-2a2 2 0 0 0 -2 -2h-4l2 -2m0 4l-2 -2" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            }
+            }
+
+        </div>
+    </div>
+</main>

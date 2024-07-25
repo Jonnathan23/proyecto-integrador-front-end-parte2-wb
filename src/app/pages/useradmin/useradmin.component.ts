@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { UserType } from '../../../assets/models/models';
 import { DatauserService } from '../../services/foruser/datauser.service';
 import { SelecteduserService } from '../../services/foruser/selecteduser.service';
@@ -11,20 +11,22 @@ import { SelecteduserService } from '../../services/foruser/selecteduser.service
   styleUrl: './useradmin.component.scss'
 })
 export class UseradminComponent {
-  users:UserType[] = []
+  users: UserType[] = []
 
-  userSelec!:UserType
+  userSelec!: UserType
 
-  constructor(private userService: DatauserService, private selectedUserService: SelecteduserService) { }
+  constructor(private userService: DatauserService, private selectedUserService: SelecteduserService, private cd: ChangeDetectorRef) { }
 
-  ngOnInit(){        
-    this.userService.getUsers().subscribe({
-      next: users => this.users = users
-      ,error: () => this.users = []
-    })    
+  ngOnInit() {
+    this.userService.getUsers().subscribe(
+      data => {
+        this.users = data
+        this.cd.detectChanges()
+      }
+    )
   }
 
-  selectedUser(user:UserType){
+  selectedUser(user: UserType) {
     this.selectedUserService.setSelectedUser(user)
   }
 

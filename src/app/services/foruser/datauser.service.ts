@@ -45,6 +45,7 @@ export class DatauserService {
     )
   }
 
+  //|----- Login -----|
   getLoginUser(token: string) {
     const id = jwtDecode(token)
     const headers = new HttpHeaders({

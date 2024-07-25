@@ -18,13 +18,22 @@ export type AdminSateBook = AdminBook & {
     state: StateBook['description']
 }
 
-/**
- * @description Modelo para indicar los estados del libro
- */
+/** @description Modelo para indicar los estados del libro  */
 export type StateBook = {
     id: number
     description: string
 }
+
+export class MyBooks {    
+	myBoo_id ?: number;	
+	myBoo_idUser ?: number;	
+	myBoo_nameUser ?: string;	
+	myBoo_idBook ?: number;	
+	myBoo_nameBook ?: string;	
+	myBoo_stateBook ?: string;
+}
+
+
 
 // Estructura de una categoria
 export type CategoryType = {

@@ -49,19 +49,18 @@ export class LoginserviceService {
     }
   }
 
-  loginUser(user: LoginUser) {    
-   this.userService.getToken(user).subscribe(
-    response => {
-      console.log('Response from login:', response); // Imprimir respuesta      
-      console.log('Token:', response.jwt); // Imprimir token            
-    },
-    error => {      
-      console.error('Login error:', error);
-    }
-   )
-    
-    //const userLoged = this.userService.getLoginUser(token)
-    
+  loginUser(user: LoginUser) {
+    this.userService.getToken(user).subscribe(
+      response => {
+        console.log('Response from login:', response); // Imprimir respuesta      
+        console.log('Token:', response.jwt); // Imprimir token
+
+        response.jwt && this.userService.getLoginUser(response.jwt!)
+      },
+      error => {
+        console.error('Login error:', error);
+      }
+    )
   }
 
 
