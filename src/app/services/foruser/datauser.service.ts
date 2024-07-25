@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { LoginUser, TokenUser, UserType } from '../../../assets/models/models';
 import { BehaviorSubject, catchError, Observable, tap, throwError } from 'rxjs';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { ConnectionError } from '../../../errors/errors';
 import { jwtDecode } from 'jwt-decode';
 
 @Injectable({
@@ -60,7 +59,7 @@ export class DatauserService {
 
   private handleError(error: HttpErrorResponse): Observable<never> {
 
-    return throwError(() => new ConnectionError(error.message))
+    return throwError(() => new Error(error.message))
   }
 
 

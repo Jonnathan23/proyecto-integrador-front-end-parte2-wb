@@ -24,13 +24,13 @@ export type StateBook = {
     description: string
 }
 
-export class MyBooks {    
-	myBoo_id ?: number;	
-	myBoo_idUser ?: number;	
-	myBoo_nameUser ?: string;	
-	myBoo_idBook ?: number;	
-	myBoo_nameBook ?: string;	
-	myBoo_stateBook ?: string;
+export class MyBooks {
+    myBoo_id?: number;
+    myBoo_idUser?: number;
+    myBoo_nameUser?: string;
+    myBoo_idBook?: number;
+    myBoo_nameBook?: string;
+    myBoo_stateBook?: string;
 }
 
 
@@ -56,10 +56,13 @@ export class UserType {
 
 export class LendBookHistory {
     lenboo_id?: number;
-    lenboo_name?: string;
     lenboo_category?: string;
+    lenboo_idBook?: number;
+    lenboo_nameBook?: string;
+    lenboo_idUser?: number;
     lenboo_nameUser?: string;
-    lenboo_date?: string;
+    lenboo_inicial_date?: string;
+    lenboo_limit_date?: string;
 }
 
 export class ReturnBookHistory {

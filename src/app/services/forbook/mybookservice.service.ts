@@ -10,8 +10,8 @@ export class MybookserviceService {
   url = 'http://localhost:8080/proyectobackend/bl-sv'
   constructor(private http: HttpClient) { }
 
-  getMyBooks() {
-    return this.http.get<MyBooks>(`${this.url}/mybooks`)
+  getMyBooks(id:number) {
+    return this.http.get<MyBooks>(`${this.url}/mybooks/mb/${id}`)
   }
 
   createMyBook(myBook: MyBooks) {

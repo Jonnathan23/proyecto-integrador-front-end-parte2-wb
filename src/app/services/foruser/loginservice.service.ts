@@ -15,6 +15,12 @@ export class LoginserviceService {
 
   private imgDefault = 'assets/img/imageUser.jpg'
   private userRestart: UserType = { us_id: 0, us_name: '', us_lastname: '', us_cell: '', us_email: '', us_password: '', us_image: this.imgDefault, us_admin: false };
+  /**
+   * ! Borrar esta variable,solo es temporar
+   */
+  private userDefault: UserType = {
+    us_id: 2, us_name: 'Jackson', us_lastname: 'Pearson', us_cell: '0989621136', us_email: 'danharman@gmail.com', us_password: 'dani123456', us_image: this.imgDefault, us_admin: false
+  }
   private keyUser = 'userActive';
 
   private userActive = new BehaviorSubject<UserType>(this.userRestart);
@@ -29,6 +35,12 @@ export class LoginserviceService {
       this.router.navigate(['/adminbooks']);
 
     }
+  }
+  /**
+   * ! Borrar esta funcion
+   */
+  getDefaultUser(){
+    return this.userDefault;
   }
 
   registerUser(user: UserType) {
@@ -106,4 +118,6 @@ export class LoginserviceService {
   getUserActive() {
     return this.userActive$
   }
+
+  
 }

@@ -8,6 +8,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 export class SelectedbookService {
   private cbText = 'Seleccione Categoria';
   private srcImageNotFound = 'assets/img/selectImage.jpg'
+  private cbDate = 'Seleccione fecha'
 
   private restarBook: AdminBook = { boo_id: 0, boo_name: '', boo_description: '', boo_image: this.srcImageNotFound, boo_autor: '', boo_category: this.cbText }
   private selectedBook = new BehaviorSubject<AdminBook>(this.restarBook);
@@ -40,6 +41,10 @@ export class SelectedbookService {
 
   getCbText() {
     return this.cbText;
+  }
+
+  getCbDate(){
+    return this.cbDate;
   }
 
   /**

@@ -21,7 +21,7 @@ export class LendsbooksComponent {
 
     this.lendBookService.getLendBooks().subscribe(
       data => {
-        this.lendsBooks = data.filter((lend) => this.book.boo_name === lend.lenboo_name)
+        this.lendsBooks = data.filter((lend) => this.book.boo_name === lend.lenboo_nameBook)
         this.cd.detectChanges()
       },
       error => {

@@ -33,6 +33,28 @@ export function errorModifyBook() {
     })
 }
 
+/** @description Alerta de guardado con exito el prestamo */
+export function addLendBookSuccess(){
+    Swal.fire({
+        title: 'Reservacion exitosa',
+        text:'Se ha reservado el libro correctamente',
+        icon: 'success',
+        timer: 4000,
+        timerProgressBar: true
+    })
+}
+
+/** @description Alerta de guardado con exito el prestamo */
+export function addLendBookError(){
+    Swal.fire({
+        title: 'Fallo al reservar el libro',
+        text:'Lo sentimos, el libro se encuentra reservado o prestado',
+        icon: 'error',
+        timer: 4000,
+        timerProgressBar: true
+    })
+}
+
 //* Borrar
 /** @description alerta para informar de que se ha eliminado correctamente */
 export function deleteSuccess() {

@@ -3,7 +3,6 @@ import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { AdminBook, BookType, StateBook } from '../../../assets/models/models';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError, tap } from 'rxjs/operators';
-import { ConnectionError } from '../../../errors/errors'
 
 @Injectable({
   providedIn: 'root'
@@ -33,6 +32,11 @@ export class DatabookService {
   }
 
   //|---- Metodos HTTP ----|
+
+  getBooksFromMyBooks(idUser: number){
+    return this.http.get<AdminBook[]>(`${this.url}/books/mb/${idUser}`)
+  }
+
   getBooks() {
     return this.http.get<AdminBook[]>(`${this.url}/books`)
   }
@@ -50,7 +54,7 @@ export class DatabookService {
   }
 
   private handleError(error: HttpErrorResponse): Observable<never> {
-    return throwError(() => new ConnectionError(error.message))
+    return throwError(() => new Error(error.message))
   }
 
 }
