@@ -2,7 +2,10 @@
 
 /* MAIN */
 main {        
-    background-image: linear-gradient(to top, $degradado_azul_bot 0%, $degradado_azul_top 100%);    
+    background-image: linear-gradient(to top, $degradado_azul_bot 0%, $degradado_azul_top 100%);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;    
 }
 
 .cont{
