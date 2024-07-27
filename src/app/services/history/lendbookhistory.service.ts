@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { DatabookService } from '../forbook/databook.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AdminBook, InsertLend, InsertMyBooks, LendBookHistory, MyBooks } from '../../../assets/models/models';
-import { errorSave } from '../../../alerts/alerts';
+import { addLendBookError, addLendBookSuccess, errorSave, saveBook } from '../../../alerts/alerts';
 import { MybookserviceService } from '../forbook/mybookservice.service';
 import { tap } from 'rxjs';
 
@@ -42,30 +42,38 @@ export class LendbookhistoryService {
     return myBook
   }
 
-/**
- * ! Da problemas de BAD Request al crear un prestamo
- *  * Funciona el myBook
- * @param lendBook 
- * @param book 
- * @returns 
- */
+  fillDataLendBook(lendBook: LendBookHistory) {
+    const insertLend: InsertLend = {
+      lenboo_category: lendBook.lenboo_category,
+      lenboo_idBook: lendBook.lenboo_idBook,
+      lenboo_nameBook: lendBook.lenboo_nameBook,
+      lenboo_idUser: lendBook.lenboo_idUser,
+      lenboo_nameUser: lendBook.lenboo_nameUser,
+      lenboo_inicial_date: lendBook.lenboo_inicial_date,
+      lenboo_limit_date: lendBook.lenboo_limit_date,
+    }
+
+    return insertLend;
+  }
+
+  /**   
+   *  * Funciona el myBook
+   * @param lendBook 
+   * @param book 
+   * @returns 
+   */
   addLendBook(lendBook: LendBookHistory, book: AdminBook) {
     this.bookService.updateBook(book)
-    const insertLend = lendBook as InsertLend
-    const myBook = this.fillDataMyBook(insertLend, book) as InsertMyBooks;
 
-    console.log('Guardando...')
-    console.log(insertLend)
+    const insertLend = this.fillDataLendBook(lendBook)
+    const myBook = this.fillDataMyBook(insertLend, book) as InsertMyBooks;    
+
     this.myBookService.createMyBook(myBook).subscribe({
-      next:() => console.log('My book Creado')
-      , error: (err) => console.error(err)
+      next: () => addLendBookSuccess()
+      , error: () => addLendBookError()
     })
 
-     const headers = new HttpHeaders({
-      'Content-Type': 'application/json'
-    });
+    return this.http.post(`${this.url}/lendbooks`, insertLend);
 
-    return this.http.post(`${this.url}/lendbooks`, JSON.stringify(insertLend), { headers });
- 
   }
 }

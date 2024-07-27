@@ -12,20 +12,13 @@ import { LoginserviceService } from '../../services/foruser/loginservice.service
   styleUrl: './adminbooks.component.scss'
 })
 export class AdminbooksComponent {
-  user!: UserType
-
+  user!: UserType  
   constructor(private loginService: LoginserviceService) { }
 
   ngOnInit() {
     this.loginService.getUserActive().subscribe((user) => {
       const userLocal = this.loginService.getUserStorage()!;
       this.user = userLocal.us_id ? userLocal : user;
-
-      // !Eliminar está linea
-      this.user.us_id = 2
-
-      window.open(`http://localhost:8080/proyectobackend/faces/notification.xhtml?userId=${this.user.us_id}`, '_blank');
-
     })
   }
 }

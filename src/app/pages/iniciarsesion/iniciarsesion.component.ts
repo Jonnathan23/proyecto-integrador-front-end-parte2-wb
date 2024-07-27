@@ -13,9 +13,9 @@ import { errorSignIn } from '../../../alerts/alerts';
   styleUrl: './iniciarsesion.component.scss'
 })
 export class IniciarsesionComponent {
-  loginUser: LoginUser = { us_email: '', us_password: '' }
+  loginUser: LoginUser = { username: '', password: '' }
 
-  constructor(private loginService: LoginserviceService){}
+  constructor(private loginService: LoginserviceService) { }
 
   /**
    * TODO: falta el 'loginService'
@@ -23,11 +23,11 @@ export class IniciarsesionComponent {
    */
   login(form: NgForm) {
 
-    this.loginUser.us_email = form.value.email;
-    this.loginUser.us_password = form.value.password;
+    this.loginUser.username = form.value.email;
+    this.loginUser.password = form.value.password;
 
     this.loginService.loginUser(this.loginUser)
-    
+
   }
 
 }

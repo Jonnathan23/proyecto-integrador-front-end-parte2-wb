@@ -48,11 +48,7 @@ export class AsidebookComponent {
         } else {
           this.lendBook.lenboo_nameUser = user.us_name
           this.lendBook.lenboo_idUser = user.us_id!
-        }
-
-        //! Eliminar estas dos lineas
-        this.lendBook.lenboo_idUser = this.loginService.getDefaultUser().us_id
-        this.lendBook.lenboo_nameUser = this.loginService.getDefaultUser().us_name
+        }        
       })
 
       this.setLendBookData()
@@ -77,8 +73,9 @@ export class AsidebookComponent {
     const date = e.target as HTMLInputElement
     const currentDate = new Date();
     const today = new Date()
-    this.lendBook.lenboo_inicial_date = `${today}`
-    this.lendBook.lenboo_limit_date = `${currentDate.setDate(currentDate.getDate() + dates[+date.value - 1].days)}`
+    this.lendBook.lenboo_inicial_date = `${this.lendBookService.formatDate(today)}`
+    currentDate.setDate(currentDate.getDate() + dates[+date.value - 1].days)
+    this.lendBook.lenboo_limit_date = `${this.lendBookService.formatDate(currentDate)}`
   }
 
   setLendBookData() {

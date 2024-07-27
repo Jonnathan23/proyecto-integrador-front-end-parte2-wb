@@ -15,12 +15,6 @@ export class LoginserviceService {
 
   private imgDefault = 'assets/img/imageUser.jpg'
   private userRestart: UserType = { us_id: 0, us_name: '', us_lastname: '', us_cell: '', us_email: '', us_password: '', us_image: this.imgDefault, us_admin: false };
-  /**
-   * ! Borrar esta variable,solo es temporar
-   */
-  private userDefault: UserType = {
-    us_id: 3, us_name: 'Sebastian', us_lastname: 'Calle', us_cell: '09987254166', us_email: 'sebascalle@gmail.com', us_password: '12323234343', us_image: this.imgDefault, us_admin: false
-  }
   private keyUser = 'userActive';
 
   private userActive = new BehaviorSubject<UserType>(this.userRestart);
@@ -36,23 +30,13 @@ export class LoginserviceService {
 
     }
   }
-  /**
-   * ! Borrar esta funcion
-   */
-  getDefaultUser() {
-    return this.userDefault;
-  }
 
   registerUser(user: UserType) {
     const userFound = this.searchUser(user.us_email!)
     if (!userFound) {
       (this.userService.createUser(user)).subscribe({
         next: () => {
-          this.localStorageService.setItem(this.keyUser, user);
-          this.userActive.next(user)
-          this.selectedUser.setSelectedUser(user)
-
-          this.router.navigate(['/adminbooks'])
+          this.loginUser({ username: user.us_email!, password: user.us_password! })
         }
         , error: (e) => errorSave()
       })
@@ -64,10 +48,20 @@ export class LoginserviceService {
   loginUser(user: LoginUser) {
     this.userService.getToken(user).subscribe(
       response => {
-        console.log('Response from login:', response); // Imprimir respuesta      
-        console.log('Token:', response.jwt); // Imprimir token
 
-        response.jwt && this.userService.getLoginUser(response.jwt!)
+        response.jwt && this.userService.getLoginUser(response.jwt!).subscribe({
+          next: (userLoged) => {
+            this.localStorageService.setItem(this.keyUser, userLoged)
+            this.userActive.next(userLoged)
+
+            this.selectedUser.setSelectedUser(userLoged)
+            console.log(userLoged)
+
+            this.router.navigate(['/adminbooks'])
+            window.open(`http://localhost:8080/proyectobackend/faces/notification.xhtml?userId=${userLoged.us_id}`, '_blank');
+          }
+          , error: () => errorSignIn()
+        })
       },
       error => {
         errorSignIn()

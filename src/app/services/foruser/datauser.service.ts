@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { LoginUser, TokenUser, UserType } from '../../../assets/models/models';
+import { LoginUser, TokenEncripted, TokenUser, UserType } from '../../../assets/models/models';
 import { BehaviorSubject, catchError, Observable, tap, throwError } from 'rxjs';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { jwtDecode } from 'jwt-decode';
@@ -46,11 +46,11 @@ export class DatauserService {
 
   //|----- Login -----|
   getLoginUser(token: string) {
-    const id = jwtDecode(token)
+    const request = jwtDecode(token) as TokenEncripted
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
-    });
-    //return this.http.get<UserType>(`${this.url}/users/${id}`, {headers})
+    });    
+    return this.http.get<UserType>(`${this.url}/users/${request.id}`, { headers })
   }
 
   getToken(user: LoginUser) {

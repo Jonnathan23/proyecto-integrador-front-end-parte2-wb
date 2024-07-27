@@ -16,7 +16,7 @@ import { LoginserviceService } from '../../services/foruser/loginservice.service
   styleUrl: './user.component.scss'
 })
 export class UserComponent {
-  imgDefault!: string
+  imgDefault: string
   myUser!: UserType  //Usuario dueño de la sesión
   userModify!: UserType  //
 
@@ -28,9 +28,11 @@ export class UserComponent {
   @ViewChild('checkIsAdmin') checkAdmin!: ElementRef;
   @ViewChild('userImg') imgUser!: ElementRef;
 
-  constructor(private render: Renderer2, private userService: DatauserService, private loginService: LoginserviceService, private selectedUserService: SelecteduserService) { }
+  constructor(private render: Renderer2, private userService: DatauserService, private loginService: LoginserviceService, private selectedUserService: SelecteduserService) {
+    this.imgDefault = this.selectedUserService.getImgDefault()
+  }
 
-  ngOnInit(){
+  ngOnInit() {
     this.loginService.getUserActive().subscribe((user) => {
       const userLocal = this.loginService.getUserStorage()!;
       this.myUser = userLocal.us_id ? userLocal : user;
@@ -44,7 +46,7 @@ export class UserComponent {
       } else {
         this.userModify = this.loginService.getUserStorage()!
       }
-
+      console.log(this.userModify)
       setTimeout(() => {
         this.nombre = this.userModify.us_name!
         this.apellido = this.userModify.us_lastname!

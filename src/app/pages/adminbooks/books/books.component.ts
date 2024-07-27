@@ -38,6 +38,7 @@ export class BooksComponent {
         this.cd.detectChanges()
       },
       error => {
+        this.books = []
         console.error(error)
       }
     ) 

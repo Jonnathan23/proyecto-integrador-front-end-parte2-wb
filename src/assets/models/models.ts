@@ -74,8 +74,18 @@ export class ReturnBookHistory {
     retboo_date?: string;
 }
 
-export type LoginUser = Pick<UserType, 'us_email' | 'us_password'>
+export type LoginUser = {
+    username: string
+    password: string
+}
 
+export type TokenEncripted = {
+    email: string
+    exp: number
+    iat: number
+    id: number
+    sub: string
+}
 //Atribuciones
 
 export type Atribuciones = {

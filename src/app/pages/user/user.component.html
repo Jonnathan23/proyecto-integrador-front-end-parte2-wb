@@ -1,13 +1,9 @@
 <main>
     <div class="cont__admin">
-        <!--
-            @if(myUser.us_admin){
-            <app-useradmin />
-            }        
-        -->
+        @if(myUser.us_admin){
         <app-useradmin />
+        }
     </div>
-    
     <!--Seccion de datos-->
     <div class="form-container">
 
@@ -48,7 +44,7 @@
                     </div>
 
                     <div class="campo">
-                        <label for="admin">Es administrador: </label>                        
+                        <label for="admin">Es administrador: </label>
                         <input class="admin" class="campo__check" type="checkbox" id="admin" name="admin" #checkIsAdmin>
                     </div>
 

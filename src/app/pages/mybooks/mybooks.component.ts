@@ -25,14 +25,13 @@ export class MybooksComponent {
    */
   ngOnInit() {
     this.loginService.getUserActive().subscribe((user) => {
-      //const userLocal = this.loginService.getUserStorage()!;
-      //this.myUser = userLocal.us_id ? userLocal : user;
-      this.myUser = this.loginService.getDefaultUser()
+      const userLocal = this.loginService.getUserStorage()!;
+      this.myUser = userLocal.us_id ? userLocal : user;
+
       this.bookService.getBooksFromMyBooks(this.myUser.us_id!).subscribe(
         data => this.books = data
-        , error => {}
+        , error => { }
       )
-
     })
   }
 

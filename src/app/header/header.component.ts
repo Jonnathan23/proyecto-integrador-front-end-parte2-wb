@@ -14,19 +14,25 @@ import { HeaderuserComponent } from "./headeruser/headeruser.component";
 
 export class HeaderComponent {
   ingreso: boolean = false;
+  isAdmin!: boolean
 
   constructor(private loginService: LoginserviceService) { }
 
   ngOnInit() {
-    this.loginService.getUserActive().subscribe((user) => {      
+    this.loginService.getUserActive().subscribe((user) => {
       const userLocal = this.loginService.getUserStorage()!;
-      
+
       if (userLocal.us_id) {
         this.ingreso = true;
-      } else {
-        this.ingreso = user.us_id ? true : false;
-      }
+        this.isAdmin = userLocal.us_admin!
         
+      } else if (user.us_id) {
+        this.ingreso = true
+        this.isAdmin = user.us_admin!
+      } else {
+        this.ingreso = false
+      }
+
     })
   }
 
