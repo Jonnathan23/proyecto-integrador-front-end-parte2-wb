@@ -59,7 +59,6 @@ export class AsidebookComponent {
 
       setTimeout(() => this.fillData(this.book), 0)
     })
-
   }
 
   /**

@@ -29,6 +29,7 @@ export class LendbookhistoryService {
     const day = date.getDate().toString().padStart(2, '0');
     return `${day}/${month}/${year}`;
   }
+
   fillDataMyBook(lendBook: LendBookHistory, book: AdminBook) {
     const myBook: MyBooks = {
       myBoo_idUser: lendBook.lenboo_idUser,

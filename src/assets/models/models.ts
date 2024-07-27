@@ -33,8 +33,6 @@ export class MyBooks {
     myBoo_stateBook?: string;
 }
 
-
-
 // Estructura de una categoria
 export type CategoryType = {
     title: string

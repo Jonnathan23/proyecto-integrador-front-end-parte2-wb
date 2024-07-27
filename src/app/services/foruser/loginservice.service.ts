@@ -19,7 +19,7 @@ export class LoginserviceService {
    * ! Borrar esta variable,solo es temporar
    */
   private userDefault: UserType = {
-    us_id: 2, us_name: 'Jackson', us_lastname: 'Pearson', us_cell: '0989621136', us_email: 'danharman@gmail.com', us_password: 'dani123456', us_image: this.imgDefault, us_admin: false
+    us_id: 3, us_name: 'Sebastian', us_lastname: 'Calle', us_cell: '09987254166', us_email: 'sebascalle@gmail.com', us_password: '12323234343', us_image: this.imgDefault, us_admin: false
   }
   private keyUser = 'userActive';
 
@@ -39,7 +39,7 @@ export class LoginserviceService {
   /**
    * ! Borrar esta funcion
    */
-  getDefaultUser(){
+  getDefaultUser() {
     return this.userDefault;
   }
 
@@ -70,7 +70,7 @@ export class LoginserviceService {
         response.jwt && this.userService.getLoginUser(response.jwt!)
       },
       error => {
-        console.error('Login error:', error);
+        errorSignIn()
       }
     )
   }
@@ -119,5 +119,5 @@ export class LoginserviceService {
     return this.userActive$
   }
 
-  
+
 }

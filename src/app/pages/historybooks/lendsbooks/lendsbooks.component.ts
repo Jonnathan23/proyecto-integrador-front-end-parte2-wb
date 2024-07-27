@@ -23,9 +23,6 @@ export class LendsbooksComponent {
       data => {
         this.lendsBooks = data.filter((lend) => this.book.boo_name === lend.lenboo_nameBook)
         this.cd.detectChanges()
-      },
-      error => {
-
       }
     )
   }

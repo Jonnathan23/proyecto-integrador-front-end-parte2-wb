@@ -9,20 +9,37 @@
             -->
         </section>
         <div class="cont--books">
-            @for (b of books; track b) {
+            @for (book of books; track books) {
             <div class="book">
-                <div class="book--content">                    
-                    <h3> {{b.boo_name}}</h3>                    
-                    <p>Autor: {{b.boo_autor}}</p>
+                <div class="book--content">
+                    <h3> {{book.boo_name}}</h3>                    
+                    <p>Autor: {{book.boo_autor}}</p>
                 </div>
                 <div class="book--img">
-                    <img src="{{b.boo_image}}" alt="{{b.boo_name}}">                    
+                    <img src="{{book.boo_image}}" alt="{{book.boo_name}}">                    
                 </div>
-                <div>
-                    <p>{{b.boo_description}}</p>
+                <div class="book__text">
+                    <p>{{book.boo_description}}</p>
+                    <div class="book__bts">                       
+                    <button (click)="setAsideBook(book)" class="book__bt">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plus" width="32" height="32" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                            <path d="M12 5l0 14" />
+                            <path d="M5 12l14 0" />
+                          </svg>
+                    </button>                    
+                    </div>
                 </div>
             </div>
             }
         </div>
     </div>
 </main>
+@if(isLendingBook){
+    <div class="cont">
+        <div class="cont__bt__cerrar">
+            <input class="bt__cerrar" (click)="hideAsideBook()" type="button" value="Cerrar">
+        </div>        
+        <app-asidebook />
+    </div>
+}
