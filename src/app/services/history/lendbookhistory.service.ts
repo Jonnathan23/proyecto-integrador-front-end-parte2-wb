@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { DatabookService } from '../forbook/databook.service';
-import { HttpClient } from '@angular/common/http';
-import { AdminBook, LendBookHistory, MyBooks } from '../../../assets/models/models';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { AdminBook, InsertLend, InsertMyBooks, LendBookHistory, MyBooks } from '../../../assets/models/models';
 import { errorSave } from '../../../alerts/alerts';
 import { MybookserviceService } from '../forbook/mybookservice.service';
+import { tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -41,11 +42,30 @@ export class LendbookhistoryService {
     return myBook
   }
 
+/**
+ * ! Da problemas de BAD Request al crear un prestamo
+ *  * Funciona el myBook
+ * @param lendBook 
+ * @param book 
+ * @returns 
+ */
   addLendBook(lendBook: LendBookHistory, book: AdminBook) {
     this.bookService.updateBook(book)
-    const myBook = this.fillDataMyBook(lendBook, book);
+    const insertLend = lendBook as InsertLend
+    const myBook = this.fillDataMyBook(insertLend, book) as InsertMyBooks;
 
-    this.myBookService.createMyBook(myBook)
-    return this.http.post(`${this.url}/lendbooks`, lendBook)
+    console.log('Guardando...')
+    console.log(insertLend)
+    this.myBookService.createMyBook(myBook).subscribe({
+      next:() => console.log('My book Creado')
+      , error: (err) => console.error(err)
+    })
+
+     const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+
+    return this.http.post(`${this.url}/lendbooks`, JSON.stringify(insertLend), { headers });
+ 
   }
 }

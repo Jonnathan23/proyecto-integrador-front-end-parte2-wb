@@ -33,6 +33,7 @@ export class MyBooks {
     myBoo_stateBook?: string;
 }
 
+export type InsertMyBooks = Pick<MyBooks, 'myBoo_idUser' | 'myBoo_nameUser' | 'myBoo_idBook' | 'myBoo_nameBook' | 'myBoo_stateBook'>
 // Estructura de una categoria
 export type CategoryType = {
     title: string
@@ -62,6 +63,8 @@ export class LendBookHistory {
     lenboo_inicial_date?: string;
     lenboo_limit_date?: string;
 }
+
+export type InsertLend = Pick<LendBookHistory, 'lenboo_category' | 'lenboo_idBook' | 'lenboo_nameBook' | 'lenboo_idUser' | 'lenboo_nameUser' | 'lenboo_inicial_date' | 'lenboo_limit_date'>
 
 export class ReturnBookHistory {
     retboo_id?: number;

@@ -1,4 +1,4 @@
-import { Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
 import { AdminBook, LendBookHistory, StateBook } from '../../../../../assets/models/models';
 import { DatabookService } from '../../../../services/forbook/databook.service';
 import { SelectedbookService } from '../../../../services/forbook/selectedbook.service';
@@ -30,7 +30,7 @@ export class AsidebookComponent {
   @ViewChild('cbCategory') cbCategory!: ElementRef;
   @ViewChild('book_img') imgBook!: ElementRef;
 
-  constructor(private selectedBookService: SelectedbookService, private render: Renderer2, private lendBookService: LendbookhistoryService, private loginService: LoginserviceService) {
+  constructor(private selectedBookService: SelectedbookService, private render: Renderer2, private lendBookService: LendbookhistoryService, private loginService: LoginserviceService, private cd: ChangeDetectorRef) {
     this.cbText = this.selectedBookService.getCbText();
     this.cbDate = this.selectedBookService.getCbDate();
     this.lendBook = this.lendBookService.getLendBookRestar()
@@ -99,7 +99,13 @@ export class AsidebookComponent {
     try {
       await this.check()
       this.book.boo_state = statesBook[1].description
-      this.lendBookService.addLendBook(this.lendBook, this.book)
+      this.lendBookService.addLendBook(this.lendBook, this.book).subscribe({
+        next: () => {
+          console.log('Guardado exitosamente')
+          this.cd.detectChanges()
+        }
+        , error: (err) => console.error(err)
+      })
 
     } catch (error) {
 
@@ -115,7 +121,10 @@ export class AsidebookComponent {
     try {
       await this.check()
       this.book.boo_state = statesBook[1].description
-      this.lendBookService.addLendBook(this.lendBook, this.book)
+      this.lendBookService.addLendBook(this.lendBook, this.book).subscribe({
+        next: () => console.log('Guardado exitosamente')
+        , error: (err) => console.error(err)
+      })
     } catch (error) {
 
     }
