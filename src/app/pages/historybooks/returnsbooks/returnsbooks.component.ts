@@ -20,7 +20,7 @@ export class ReturnsbooksComponent {
   ngOnInit() {
     this.returnBookSerive.getReturnBooks().subscribe(
       data => {
-        this.returnsBooks = data.filter((rbook) => this.book.boo_name === rbook.retboo_name)
+        this.returnsBooks = data.filter((rbook) => this.book.boo_name === rbook.retboo_nameUser)
         this.cd.detectChanges()
       }, error => {
 

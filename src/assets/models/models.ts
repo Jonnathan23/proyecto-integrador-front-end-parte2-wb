@@ -68,11 +68,15 @@ export type InsertLend = Pick<LendBookHistory, 'lenboo_category' | 'lenboo_idBoo
 
 export class ReturnBookHistory {
     retboo_id?: number;
-    retboo_name?: string;
+    retboo_idBook?: number
+    retboo_nameBook?: string;
     retboo_category?: string;
+    retboo_idUser?: number;
     retboo_nameUser?: string;
     retboo_date?: string;
 }
+
+export type InsertReturnBook = Pick<ReturnBookHistory, 'retboo_idBook' | 'retboo_nameBook' | 'retboo_category' | 'retboo_idUser' | 'retboo_nameUser' | 'retboo_date'>
 
 export type LoginUser = {
     username: string

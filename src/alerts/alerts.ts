@@ -34,10 +34,10 @@ export function errorModifyBook() {
 }
 
 /** @description Alerta de guardado con exito el prestamo */
-export function addLendBookSuccess(){
+export function addLendBookSuccess() {
     Swal.fire({
         title: 'Reservacion exitosa',
-        text:'Se ha reservado el libro correctamente',
+        text: 'Se ha reservado el libro correctamente',
         icon: 'success',
         timer: 4000,
         timerProgressBar: true
@@ -45,15 +45,28 @@ export function addLendBookSuccess(){
 }
 
 /** @description Alerta de guardado con exito el prestamo */
-export function addLendBookError(){
+export function addLendBookError() {
     Swal.fire({
         title: 'Fallo al reservar el libro',
-        text:'Lo sentimos, el libro se encuentra reservado o prestado',
+        text: 'Lo sentimos, el libro se encuentra reservado o prestado',
         icon: 'error',
         timer: 4000,
         timerProgressBar: true
     })
 }
+
+/** @description Alerta de guardado con exito el prestamo */
+export function addReturnBookSuccess() {
+    Swal.fire({
+        title: 'Devolucion exitosa',
+        text: 'Se ha devuelto el libro correctamente',
+        icon: 'success',
+        timer: 4000,
+        timerProgressBar: true
+    })
+}
+
+
 
 //* Borrar
 /** @description alerta para informar de que se ha eliminado correctamente */
@@ -80,7 +93,6 @@ export function errorDelete() {
 
 
 
-
 // Campos de agregar libro vacios
 /** @description Alerta para formulario con error por campos vacios */
 export function errorInputs() {
@@ -103,10 +115,10 @@ export function errorSave() {
     })
 }
 
-export function connectionError(info: string){
+export function connectionError(info: string) {
     Swal.fire({
-        title:'Error al conectar',
-        text:`Error: ${info}`,
+        title: 'Error al conectar',
+        text: `Error: ${info}`,
         icon: 'error'
     })
 }

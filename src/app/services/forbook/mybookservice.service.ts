@@ -11,7 +11,7 @@ export class MybookserviceService {
   constructor(private http: HttpClient) { }
 
   getMyBooks(id:number) {
-    return this.http.get<MyBooks>(`${this.url}/mybooks/mb/${id}`)
+    return this.http.get<MyBooks[]>(`${this.url}/mybooks/mb/${id}`)
   }
 
   createMyBook(myBook: MyBooks) {

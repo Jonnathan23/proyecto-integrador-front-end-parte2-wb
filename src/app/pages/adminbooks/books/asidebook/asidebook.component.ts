@@ -7,6 +7,7 @@ import { dates, statesBook } from '../../../../../assets/data/data';
 import { LoginserviceService } from '../../../../services/foruser/loginservice.service';
 import { LendbookhistoryService } from '../../../../services/history/lendbookhistory.service';
 import { ErrorFillEmpty, ErrorBookIsReserved } from '../../../../../errors/errors';
+import { formatDate } from '../../../../../funtions/funtions.format';
 
 @Component({
   selector: 'app-asidebook',
@@ -73,9 +74,9 @@ export class AsidebookComponent {
     const date = e.target as HTMLInputElement
     const currentDate = new Date();
     const today = new Date()
-    this.lendBook.lenboo_inicial_date = `${this.lendBookService.formatDate(today)}`
+    this.lendBook.lenboo_inicial_date = `${formatDate(today)}`
     currentDate.setDate(currentDate.getDate() + dates[+date.value - 1].days)
-    this.lendBook.lenboo_limit_date = `${this.lendBookService.formatDate(currentDate)}`
+    this.lendBook.lenboo_limit_date = `${formatDate(currentDate)}`
   }
 
   setLendBookData() {
@@ -117,7 +118,7 @@ export class AsidebookComponent {
   async aside() {
     try {
       await this.check()
-      this.book.boo_state = statesBook[1].description
+      this.book.boo_state = statesBook[2].description
       this.lendBookService.addLendBook(this.lendBook, this.book).subscribe({
         next: () => console.log('Guardado exitosamente')
         , error: (err) => console.error(err)
