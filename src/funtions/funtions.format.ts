@@ -4,3 +4,14 @@ export const formatDate = (date: Date): string => {
     const day = date.getDate().toString().padStart(2, '0');
     return `${day}/${month}/${year}`;
 }
+
+export const generateWindow = (idUser: number) => {
+    const width = 600;
+    const height = 400;
+    const left = (screen.width / 2) - (width / 2);
+    const top = (screen.height / 2) - (height / 2);
+    
+    const windowFeatures = `width=${width},height=${height},left=${left},top=${top}`;    
+    window.open(`http://localhost:8080/proyectobackend/faces/notification.xhtml?userId=${idUser}`, '_blank', windowFeatures);
+
+}

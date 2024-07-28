@@ -6,6 +6,7 @@ import { LocalstorageService } from '../../storage/localstorage.service';
 import { DatauserService } from './datauser.service';
 import { errorSave, errorSignIn, userExist } from '../../../alerts/alerts';
 import { SelecteduserService } from './selecteduser.service';
+import { generateWindow } from '../../../funtions/funtions.format';
 
 
 @Injectable({
@@ -58,7 +59,7 @@ export class LoginserviceService {
             console.log(userLoged)
 
             this.router.navigate(['/adminbooks'])
-            window.open(`http://localhost:8080/proyectobackend/faces/notification.xhtml?userId=${userLoged.us_id}`, '_blank');
+            generateWindow(userLoged.us_id!)
           }
           , error: () => errorSignIn()
         })
