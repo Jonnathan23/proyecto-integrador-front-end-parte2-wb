@@ -70,4 +70,20 @@ export class LendbookhistoryService {
 
     return this.http.post(`${this.url}/lendbooks`, insertLend);
   }
+
+  deleteLendBook(id: LendBookHistory ['lenboo_id']) {
+    return this.http.delete(`${this.url}/lendbooks/${id}`)
+  }
+
+  updateLendBook(lendBook: LendBookHistory) {
+    return this.http.put(`${this.url}/lendbooks/${lendBook.lenboo_id}`, lendBook)
+  }
+
+  getLendBookById(id: number) {
+    return this.http.get<LendBookHistory>(`${this.url}/lendbooks/${id}`)
+  }
+
+  getLendBookByIdBook(idBook: number , idUser: number) {
+    return this.http.get<LendBookHistory>(`${this.url}/lendbooks/book/${idBook}/user/${idUser}`)
+  }
 }
