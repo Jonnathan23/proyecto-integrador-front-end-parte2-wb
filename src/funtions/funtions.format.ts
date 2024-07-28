@@ -4,7 +4,10 @@ export const formatDate = (date: Date): string => {
     const day = date.getDate().toString().padStart(2, '0');
     return `${day}/${month}/${year}`;
 }
-
+/**
+ * @description Genera una ventana xhtml emergente creada en java
+ * @param idUser 
+ */
 export const generateWindow = (idUser: number) => {
     const width = 600;
     const height = 400;

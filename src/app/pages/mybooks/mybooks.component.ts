@@ -28,11 +28,8 @@ export class MybooksComponent {
   constructor(private bookService: DatabookService, private cd: ChangeDetectorRef,
     private myBooksService: MybookserviceService, private loginService: LoginserviceService,
     private returnBookService: ReturnbookhistoryService, private lendBookService: LendbookhistoryService) { }
-  /**
-   * TODO: Cambiar el book service, solo se usa para mostar los libros
-   *  * Crear una consulta Sql para obtener en el Back-end para mostrar 'My Books'
-   *  *  
-   */
+
+
   ngOnInit() {
     this.loginService.getUserActive().subscribe((user) => {
       const userLocal = this.loginService.getUserStorage()!;
