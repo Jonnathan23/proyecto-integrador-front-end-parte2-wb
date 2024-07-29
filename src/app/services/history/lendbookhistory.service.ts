@@ -62,7 +62,6 @@ export class LendbookhistoryService {
   
 
   /**   
-   *  
    * @param lendBook 
    * @param book 
    * @returns 

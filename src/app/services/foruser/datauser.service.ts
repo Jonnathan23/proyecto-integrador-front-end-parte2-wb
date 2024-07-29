@@ -14,8 +14,8 @@ export class DatauserService {
 
   constructor(private http: HttpClient) { }
 
-  getUser(id: any) {
-    return this.http.get<UserType>(`${this.url}/${id}`)
+  getUserByEmail(email: string) {
+    return this.http.get<UserType>(`${this.url}/users/email/${email}`)
   }
 
   getUsers() {

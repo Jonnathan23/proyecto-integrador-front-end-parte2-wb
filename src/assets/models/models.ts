@@ -67,6 +67,8 @@ export class UserType {
     us_admin?: boolean
 }
 
+export type InsertUser = Pick<UserType, 'us_name' | 'us_lastname' | 'us_cell' | 'us_email' | 'us_password' | 'us_image' | 'us_admin'>
+
 export class LendBookHistory {
     lenboo_id?: number;
     lenboo_category?: string;

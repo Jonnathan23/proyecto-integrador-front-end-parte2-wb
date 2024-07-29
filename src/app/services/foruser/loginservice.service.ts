@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, map, Observable, tap, throwError } from 'rxjs';
-import { LoginUser, UserType } from '../../../assets/models/models';
+import { InsertUser, LoginUser, UserType } from '../../../assets/models/models';
 import { Router } from '@angular/router';
 import { LocalstorageService } from '../../storage/localstorage.service';
 import { DatauserService } from './datauser.service';
@@ -32,18 +32,23 @@ export class LoginserviceService {
     }
   }
 
-  registerUser(user: UserType) {
-    const userFound = this.searchUser(user.us_email!)
-    if (!userFound) {
-      (this.userService.createUser(user)).subscribe({
-        next: () => {
-          this.loginUser({ username: user.us_email!, password: user.us_password! })
+  registerUser(user: InsertUser) {
+    this.userService.getUserByEmail(user.us_email!).subscribe(
+      userFound => {        
+        if (!userFound) {          
+          console.log('newUser')
+          console.log(user)
+          this.userService.createUser(user).subscribe(
+            () => this.loginUser({ username: user.us_email!, password: user.us_password! }),
+            error => console.log(error)
+          )
+        } else {
+          userExist()
         }
-        , error: (e) => errorSave()
-      })
-    } else {
-      userExist()
-    }
+
+      }
+      , error => console.log(error)
+    )
   }
 
   loginUser(user: LoginUser) {
@@ -66,19 +71,11 @@ export class LoginserviceService {
       },
       error => {
         errorSignIn()
+        console.log(error)
       }
     )
   }
 
-
-  /**
-   * 
-   * @param id 
-   * @returns 
-   */
-  searchUser(email: string): Observable<UserType | null> {
-    return this.userService.getUser(email)
-  }
 
   /**
    * TODO falta el cerrar sesión con el Token
