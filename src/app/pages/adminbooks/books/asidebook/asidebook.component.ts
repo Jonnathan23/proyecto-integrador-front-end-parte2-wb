@@ -1,12 +1,10 @@
 import { ChangeDetectorRef, Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
 import { AdminBook, LendBookHistory, StateBook } from '../../../../../assets/models/models';
-import { DatabookService } from '../../../../services/forbook/databook.service';
 import { SelectedbookService } from '../../../../services/forbook/selectedbook.service';
-import { addLendBookError, errorInputs } from '../../../../../alerts/alerts';
 import { dates, statesBook } from '../../../../../assets/data/data';
 import { LoginserviceService } from '../../../../services/foruser/loginservice.service';
 import { LendbookhistoryService } from '../../../../services/history/lendbookhistory.service';
-import { ErrorFillEmpty, ErrorBookIsReserved } from '../../../../../errors/errors';
+import { ErrorFillEmpty, ErrorBookIsUsed, DefaultErrorAngular } from '../../../../../errors/errors';
 import { formatDate } from '../../../../../funtions/funtions.format';
 
 @Component({
@@ -29,6 +27,7 @@ export class AsidebookComponent {
   @ViewChild('autor') txtAutor!: ElementRef;
   @ViewChild('description') txtDescription!: ElementRef;
   @ViewChild('cbCategory') cbCategory!: ElementRef;
+  @ViewChild('cbDates') cbDateSelect!: ElementRef;
   @ViewChild('book_img') imgBook!: ElementRef;
 
   constructor(private selectedBookService: SelectedbookService, private render: Renderer2, private lendBookService: LendbookhistoryService, private loginService: LoginserviceService, private cd: ChangeDetectorRef) {
@@ -49,7 +48,7 @@ export class AsidebookComponent {
         } else {
           this.lendBook.lenboo_nameUser = user.us_name
           this.lendBook.lenboo_idUser = user.us_id!
-        }        
+        }
       })
 
       this.setLendBookData()
@@ -89,14 +88,40 @@ export class AsidebookComponent {
     if (this.lendBook.lenboo_inicial_date === '') throw new ErrorFillEmpty('Fecha no seleccionada')
     else if (this.lendBook.lenboo_limit_date === '') throw new ErrorFillEmpty('Fecha no seleccionada')
 
-    if (this.book.boo_state !== statesBook[0].description) throw new ErrorBookIsReserved('Libro reservado')
+    if (this.book.boo_state === statesBook[1].description) throw new ErrorBookIsUsed('Libro reservado')
 
   }
 
+/** @description Obtiene la fecha actual y el plazo del libro */
+  getDate() {
+
+    const date = this.cbDateSelect.nativeElement.value
+    if (date === this.cbDate) throw new ErrorFillEmpty('Fecha no seleccionada')
+
+    const currentDate = new Date();
+    const today = new Date()
+    this.lendBook.lenboo_inicial_date = `${formatDate(today)}`
+    currentDate.setDate(currentDate.getDate() + dates[date - 1].days)
+    this.lendBook.lenboo_limit_date = `${formatDate(currentDate)}`
+  }
+
+  /** @description Obtiene el numero de días que tiene disponible de lectura */
+  getNumDays() {
+    const date = this.cbDateSelect.nativeElement.value
+    if (date === this.cbDate) throw new ErrorFillEmpty('Fecha no seleccionada')
+
+    this.lendBook.lenboo_inicial_date = '0'
+    this.lendBook.lenboo_limit_date = `${dates[date - 1].days}`
+  }
+
+
   async saveMyBook() {
     try {
+      this.getDate()
       await this.check()
       this.book.boo_state = statesBook[1].description
+      console.log(this.lendBook)
+
       this.lendBookService.addLendBook(this.lendBook, this.book).subscribe({
         next: () => {
           console.log('Guardado exitosamente')
@@ -106,25 +131,37 @@ export class AsidebookComponent {
       })
 
     } catch (error) {
-
-      if (error instanceof ErrorFillEmpty) errorInputs()
-
-      else if (error instanceof ErrorBookIsReserved) addLendBookError()
-
-      else addLendBookError()
+      this.handleError(error)
     }
   }
 
   async aside() {
     try {
+      this.getNumDays()
       await this.check()
+
       this.book.boo_state = statesBook[2].description
       this.lendBookService.addLendBook(this.lendBook, this.book).subscribe({
-        next: () => console.log('Guardado exitosamente')
+        next: () => {
+          console.log('Guardado exitosamente')
+          this.cd.detectChanges()
+        }
         , error: (err) => console.error(err)
       })
     } catch (error) {
+      this.handleError(error)
+    }
+  }
 
+
+
+  handleError(error: unknown) {
+    if (error instanceof ErrorFillEmpty) ErrorFillEmpty.emitAlert()
+
+    else if (error instanceof ErrorBookIsUsed) ErrorBookIsUsed.emitAlert()
+
+    else {
+      DefaultErrorAngular.emitAlert()
     }
   }
 }

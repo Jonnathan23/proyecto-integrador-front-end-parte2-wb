@@ -195,6 +195,15 @@ export function modifyUser() {
     })
 }
 
+export function defaultErrorAlert() {
+    Swal.fire({
+        title: 'Ups, tenemos problemas',
+        text: 'Lo sentimos, ocurrio algo inesperado, intentelo más tarde',
+        icon: 'error',
+        timer: 5000,
+    })
+}
+
 /**
  * @description Alerta de error Usuario existente
  */

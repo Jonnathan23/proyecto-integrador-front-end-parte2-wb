@@ -31,14 +31,28 @@ export class MyBooks {
     myBoo_idBook?: number;
     myBoo_nameBook?: string;
     myBoo_stateBook?: string;
+    myBoo_inicial_date?: string;
+    myBoo_limit_date?: string;
 }
 
 export type InsertMyBooks = Pick<MyBooks, 'myBoo_idUser' | 'myBoo_nameUser' | 'myBoo_idBook' | 'myBoo_nameBook' | 'myBoo_stateBook'>
+
+export type TopBooks = {
+    bookName: string
+    count: number
+}
+
+export class TopClient {
+    clientName?: string;
+    count?: number;
+    clientId?: number;
+}
+
 // Estructura de una categoria
-export type CategoryType = {
-    title: string
-    description: string
-    image: string
+export class CategoryType {
+    title?: string
+    description?: string
+    image?: string
 }
 
 // Estructura del Objeto Usuario

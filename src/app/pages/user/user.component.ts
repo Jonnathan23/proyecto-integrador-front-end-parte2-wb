@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { UseradminComponent } from '../useradmin/useradmin.component';
 import { UserType } from '../../../assets/models/models';
 import { shortPassword, errorInputs, modifyUser, errorSave } from '../../../alerts/alerts';
-import { ErrorShortPassword } from '../../../errors/errors';
+import { ErrorFillEmpty, ErrorShortPassword } from '../../../errors/errors';
 import { DatauserService } from '../../services/foruser/datauser.service';
 import { SelecteduserService } from '../../services/foruser/selecteduser.service';
 import { LoginserviceService } from '../../services/foruser/loginservice.service';
@@ -87,35 +87,34 @@ export class UserComponent {
     this.userModify.us_admin = this.checkAdmin.nativeElement.checked
   }
 
-  checkInputs(): boolean {
+  async checkInputs() {
     this.getAllInputs()
 
-    try {
-      if (!this.nombre) return false
-      if (!this.apellido) return false
-      if (!this.cell) return false
-      if (!this.correo) return false
-      if (!this.myPassword) return false
-      if (this.myPassword.length < 8) throw new ErrorShortPassword('Contraseña demasiado corta')
 
-      return true
-    } catch (error) {
-      if (error instanceof ErrorShortPassword) shortPassword()
+    if (!this.nombre) throw new ErrorFillEmpty('Nombre vacio')
+    if (!this.apellido) throw new ErrorFillEmpty('Nombre vacio')
+    if (!this.cell) throw new ErrorFillEmpty('Nombre vacio')
+    if (!this.correo) throw new ErrorFillEmpty('Nombre vacio')
+    if (!this.myPassword) throw new ErrorFillEmpty('Nombre vacio')
+    if (this.myPassword.length < 8) throw new ErrorShortPassword('Contraseña demasiado corta')
 
-      return false
-    }
+
   }
 
   /**
    * 
    */
-  saveChanges() {
-    const isVerify = this.checkInputs()
-    if (isVerify) {
+  async saveChanges() {
+    try {
+      await this.checkInputs()
       this.userService.updateUser(this.userModify).subscribe({
         next: () => modifyUser()
         , error: () => errorSave()
       })
+
+    } catch (error) {
+      if (error instanceof ErrorFillEmpty) ErrorFillEmpty.emitAlert()
+      else if (error instanceof ErrorShortPassword) ErrorShortPassword.emitAlert()
 
     }
 
