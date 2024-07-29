@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { AdminBook, MyBooks, ReturnBookHistory } from '../../../assets/models/models';
 import { DatabookService } from '../forbook/databook.service';
 import { MybookserviceService } from '../forbook/mybookservice.service';
-import { error } from 'node:console';
 
 @Injectable({
   providedIn: 'root'
@@ -22,10 +21,14 @@ export class ReturnbookhistoryService {
   }
 
   createReturnBook(returnBook: ReturnBookHistory, book: AdminBook, myBookId: MyBooks['myBoo_id']) {
-    this.bookService.updateBook(book)
-    this.myBookService.deleteMyBook(myBookId!).subscribe(
-      request => {}
-      , (error) => console.error(error)
+    
+    this.bookService.updateBook(book).subscribe(
+      request => {
+        this.myBookService.deleteMyBook(myBookId!).subscribe(
+          request => { console.log('Libro actualizado correctamente')}
+          , (error) => console.error(error)
+        )
+      }, error => console.error(error)
     )
 
     return this.http.post(`${this.url}/returnbooks`, returnBook)

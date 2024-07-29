@@ -5,6 +5,7 @@ import { AdminBook, InsertLend, InsertMyBooks, LendBookHistory, MyBooks } from '
 import { addLendBookError, addLendBookSuccess, errorSave, saveBook } from '../../../alerts/alerts';
 import { MybookserviceService } from '../forbook/mybookservice.service';
 import { tap } from 'rxjs';
+import { error } from 'node:console';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,9 @@ export class LendbookhistoryService {
       myBoo_nameUser: lendBook.lenboo_nameUser,
       myBoo_idBook: book.boo_id,
       myBoo_nameBook: book.boo_name,
-      myBoo_stateBook: book.boo_state
+      myBoo_stateBook: book.boo_state,
+      myBoo_inicial_date: lendBook.lenboo_inicial_date,
+      myBoo_limit_date: lendBook.lenboo_limit_date
     }
     return myBook
   }
@@ -44,7 +47,7 @@ export class LendbookhistoryService {
   getLendBooks() {
     return this.http.get<LendBookHistory[]>(`${this.url}/lendbooks`)
   }
-
+  
   getLendBookRestar() {
     return this.lendBookRestar;
   }
@@ -53,18 +56,30 @@ export class LendbookhistoryService {
     return this.http.get<LendBookHistory>(`${this.url}/lendbooks/book/${idBook}/user/${idUser}`)
   }
 
+ 
+  
+
   /**   
-   *  * Funciona el myBook
+   *  
    * @param lendBook 
    * @param book 
    * @returns 
    */
   addLendBook(lendBook: LendBookHistory, book: AdminBook) {
-    this.bookService.updateBook(book)
+    this.bookService.updateBook(book).subscribe(
+      request => {
+        
+      }
+      , error => {
+        console.log('Error al actualizar el estado del libro')
+        console.error(error)
+      }
+    )
 
     const insertLend = this.fillDataLendBook(lendBook)
-    const myBook = this.fillDataMyBook(insertLend, book) as InsertMyBooks;    
-
+    const myBook = this.fillDataMyBook(insertLend, book) as InsertMyBooks;        
+    console.log('MyBook')
+    console.log(myBook)
     this.myBookService.createMyBook(myBook).subscribe({
       next: () => addLendBookSuccess()
       , error: () => addLendBookError()
@@ -78,5 +93,5 @@ export class LendbookhistoryService {
 
   deleteLendBook(idLendBook: LendBookHistory['lenboo_id']){
     return this.http.delete(`${this.url}/lendbooks/${idLendBook}`)
-  }  
+  }   
 }

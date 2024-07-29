@@ -31,6 +31,8 @@ export class MyBooks {
     myBoo_idBook?: number;
     myBoo_nameBook?: string;
     myBoo_stateBook?: string;
+    myBoo_inicial_date?: string;
+    myBoo_limit_date?: string;
 }
 
 export type InsertMyBooks = Pick<MyBooks, 'myBoo_idUser' | 'myBoo_nameUser' | 'myBoo_idBook' | 'myBoo_nameBook' | 'myBoo_stateBook'>

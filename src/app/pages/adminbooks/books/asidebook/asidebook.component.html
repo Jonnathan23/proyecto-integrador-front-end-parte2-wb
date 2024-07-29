@@ -9,36 +9,37 @@
                 <div class="contenedor-campos">
                     <div class="campo ">
                         <label for="">Nombre</label>
-                        <input class="input__text" class="campo__dato" type="text" placeholder="Nombre del libro" #name disabled>
+                        <input class="input__text" class="campo__dato" type="text" placeholder="Nombre del libro" #name
+                        disabled>
                     </div>
                     <!--Autor-->
                     <div class="campo">
                         <label for="">Autor</label>
-                        <input class="input__text" class="campo__dato" type="text" placeholder="Nombre del libro"
-                            #autor disabled>
+                        <input class="input__text" class="campo__dato" type="text" placeholder="Nombre del libro" #autor
+                            disabled>
 
                     </div>
 
 
                     <div class="campo ">
                         <label for="">Descripción</label>
-                        <textarea class="input__text" class="campo__dato" name="" id="" cols="30" rows="5"
-                            #description disabled></textarea>
+                        <textarea class="input__text" class="campo__dato" name="" id="" cols="30" rows="5" #description
+                        disabled></textarea>
                     </div>
 
                     <!--Categorias-->
                     <div class="campo ">
                         <label for="">Categorias</label>
                         <select name="" id="" #cbCategory disabled>
-                            <option disabled selected [value]="cbText">{{cbText}}</option>                            
-                        </select>
+                            <option disabled selected [value]="cbText">{{cbText}}</option>                        </select>
                     </div>
                     
+               
                     <div class="campo ">
                         <label for="">Tiempo de reserva</label>
-                        <select (change)="selectDate($event)" name="" id="" #cbDates>
+                        <select name="" id="" #cbDates>                            <option disabled selected [value]="cbDate">{{cbDate}}</option>
                             <option disabled selected [value]="cbDate">{{cbDate}}</option>
-
+                            
                             @for (date of datesLend; track date) {
                             <option value="{{date.id}}">{{date.description}}</option>
                             }
