@@ -53,7 +53,7 @@
                 </div>
             </div>
 
-            <!-- DEVOUCIONES -->
+            <!--? DEVOUCIONES -->
             <div class="history">
                 <div class="history--cont--title">
                     <h3 class="history--title">Devoluciones</h3>
@@ -104,6 +104,63 @@
             </div>
 
         </div>
+
+        <!--? Reportes -->
+        <section class="cont--two--section">
+            <h3 class="cont--two--title">Reportes </h3>
+        </section>
+        <div class="cont--history">
+            <div class="history">
+                <div class="history--cont--title">
+                    <h3 class="history--title">Top Libros más consumidos</h3>
+                </div>
+                <div class="history--cont-content">
+                    @if (topBook.length === 0) {
+                    <p class="content-text">Sin libros top</p>
+                    }@else {
+                    <ul class="lends--list">
+                        @for (book of topBook; track book) {
+                        <li class="lends--item">
+                            <div class="cont--book--list">
+                                <p>Libro: {{book.bookName}}</p>
+                            </div>
+                            <div class="cont--book--button">
+                                <p>consumidos: {{book.count}}</p>
+                            </div>
+
+                        </li>
+                        }
+                    </ul>
+
+                    }
+                </div>
+            </div>
+
+            <!--? TopClient -->
+            <div class="history">
+                <div class="history--cont--title">
+                    <h3 class="history--title">Top Cliente</h3>
+                </div>
+                <div class="history--cont-content">
+                    @if (!topClient) {
+                    <p class="content-text">Sin clientes destacados</p>
+                    }@else {
+                    <ul class="lends--list">
+                        <li class="lends--item">
+                            <div class="cont--book--list">
+                                <p>Cliente: {{topClient.clientName}}</p>
+                            </div>
+                            <div class="cont--book--button">
+                                <p>N° libros: {{topClient.count}}</p>
+                            </div>
+
+                        </li>
+
+                    </ul>
+                    }
+                </div>
+            </div>
+
+        </div>
     </div>
 </main>
-

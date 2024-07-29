@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { DatabookService } from '../forbook/databook.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { AdminBook, InsertLend, InsertMyBooks, LendBookHistory, MyBooks } from '../../../assets/models/models';
+import { AdminBook, InsertLend, InsertMyBooks, LendBookHistory, MyBooks, TopBooks, TopClient } from '../../../assets/models/models';
 import { addLendBookError, addLendBookSuccess, errorSave, saveBook } from '../../../alerts/alerts';
 import { MybookserviceService } from '../forbook/mybookservice.service';
 import { tap } from 'rxjs';
@@ -56,7 +56,9 @@ export class LendbookhistoryService {
     return this.http.get<LendBookHistory>(`${this.url}/lendbooks/book/${idBook}/user/${idUser}`)
   }
 
- 
+  getMostReadBooksByMonth(){
+    return this.http.get<TopBooks[]>(`${this.url}/lendbooks/top-books`)
+  }
   
 
   /**   

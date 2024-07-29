@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { AdminBook, MyBooks, ReturnBookHistory } from '../../../assets/models/models';
+import { AdminBook, MyBooks, ReturnBookHistory, TopClient } from '../../../assets/models/models';
 import { DatabookService } from '../forbook/databook.service';
 import { MybookserviceService } from '../forbook/mybookservice.service';
 
@@ -14,6 +14,10 @@ export class ReturnbookhistoryService {
 
   getReturnBooks() {
     return this.http.get<ReturnBookHistory[]>(`${this.url}/returnbooks`)
+  }
+
+  getTopClient(){
+    return this.http.get<TopClient>(`${this.url}/returnbooks/top-client`)
   }
 
   updateReturnBook(returnBook: ReturnBookHistory) {

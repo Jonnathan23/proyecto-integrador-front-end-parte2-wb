@@ -1,0 +1,62 @@
+@use '../../../styles/variables' as *;
+
+.admin {
+    background-color: $azul_oscuro;
+    padding: 2rem;
+}
+
+.cont__users {
+    display: flex;
+    flex-direction: column;
+
+    gap: 2rem;
+
+}
+.cont__users .cont__title{
+    background-color: aqua;
+}
+
+.users {
+    border: $azul_titulo solid .3rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;    
+    padding: 1rem 2rem;
+    pad: 2rem;   
+
+    background-color: transparent;
+}
+
+@media (min-width:480px) {
+    .cont__users {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+    }    
+}
+
+@media (min-width:780px){
+    .cont__users {        
+        grid-template-columns: repeat(8, 1fr);
+    }
+}
+
+button{
+    transition:background-color .1s ease, transform .3s ease ;
+}
+
+button:hover{
+    cursor: pointer;
+    background-color: rgba($blanco, .3);
+    transform: scale(1.025);
+}
+
+.user--img img {    
+    width: 100%;
+}
+
+.user--bt--modi{
+    border: none;
+    background-color: transparent;
+}
