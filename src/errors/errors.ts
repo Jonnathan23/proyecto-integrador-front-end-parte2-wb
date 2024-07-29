@@ -16,12 +16,12 @@ export class ErrorFillEmpty extends Error {
     }
 }
 
-export class ErrorBookIsReserved extends Error {
+export class ErrorBookIsUsed extends Error {
     override name: string;
 
     constructor(message:string){
         super(message)
-        this.name = 'ErrorBookIsReserved'
+       this.name = 'ErrorBookIsUsed'
     }
 }
 

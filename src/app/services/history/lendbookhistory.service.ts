@@ -16,16 +16,6 @@ export class LendbookhistoryService {
 
   constructor(private bookService: DatabookService, private http: HttpClient, private myBookService: MybookserviceService) { }
 
-  getLendBooks() {
-    return this.http.get<LendBookHistory[]>(`${this.url}/lendbooks`)
-  }
-
-  getLendBookRestar() {
-    return this.lendBookRestar;
-  }
-
-  
-
   fillDataMyBook(lendBook: LendBookHistory, book: AdminBook) {
     const myBook: MyBooks = {
       myBoo_idUser: lendBook.lenboo_idUser,
@@ -51,6 +41,18 @@ export class LendbookhistoryService {
     return insertLend;
   }
 
+  getLendBooks() {
+    return this.http.get<LendBookHistory[]>(`${this.url}/lendbooks`)
+  }
+
+  getLendBookRestar() {
+    return this.lendBookRestar;
+  }
+
+  getLendBookByIdBook(idBook:LendBookHistory['lenboo_idBook'], idUser:LendBookHistory['lenboo_idUser']){
+    return this.http.get<LendBookHistory>(`${this.url}/lendbooks/book/${idBook}/user/${idUser}`)
+  }
+
   /**   
    *  * Funciona el myBook
    * @param lendBook 
@@ -70,20 +72,11 @@ export class LendbookhistoryService {
 
     return this.http.post(`${this.url}/lendbooks`, insertLend);
   }
-
-  deleteLendBook(id: LendBookHistory ['lenboo_id']) {
-    return this.http.delete(`${this.url}/lendbooks/${id}`)
+  updateLendBook(lendBook: LendBookHistory){
+    return this.http.put(`${this.url}/lendbooks`, lendBook)
   }
 
-  updateLendBook(lendBook: LendBookHistory) {
-    return this.http.put(`${this.url}/lendbooks/${lendBook.lenboo_id}`, lendBook)
-  }
-
-  getLendBookById(id: number) {
-    return this.http.get<LendBookHistory>(`${this.url}/lendbooks/${id}`)
-  }
-
-  getLendBookByIdBook(idBook: number , idUser: number) {
-    return this.http.get<LendBookHistory>(`${this.url}/lendbooks/book/${idBook}/user/${idUser}`)
-  }
+  deleteLendBook(idLendBook: LendBookHistory['lenboo_id']){
+    return this.http.delete(`${this.url}/lendbooks/${idLendBook}`)
+  }  
 }

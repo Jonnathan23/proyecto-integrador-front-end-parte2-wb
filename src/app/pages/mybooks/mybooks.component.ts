@@ -85,7 +85,7 @@ export class MybooksComponent {
 
   getMyBookReserved(book: AdminBook) {
     if (book.boo_state === statesBook[0].description) {
-
+      const myBookUpdate = this.myBooks.find((myBook) => book.boo_id === myBook.myBoo_id)
     } else {
       addLendBookError()
     }
@@ -96,18 +96,23 @@ export class MybooksComponent {
     const deleteMyBook = this.myBooks.find((mb) => book.boo_id === mb.myBoo_idBook)!
     const isConfirmed = await confirmDelete(book)
     if (isConfirmed) {
-      this.returnBookService.deleteReturnBook(deleteMyBook.myBoo_id)
-       this.lendBookService.getLendBookByIdBook(book.boo_id!, this.myUser.us_id!).subscribe(
-        {
-          next: (deleteLend) => {
-            this.lendBookService.deleteLendBook(deleteLend.lenboo_id).subscribe(request => {         
-              console.log(request)          
-            }
-            , (err) => console.error(err))
-            book.boo_state = statesBook[0].description
-            this.bookService.updateBook(book)
-            this.cd.detectChanges()
-          }, error: (err) => {console.log(err) }
+      this.myBooksService.deleteMyBook(deleteMyBook.myBoo_id!).subscribe(
+        request => {
+          this.lendBookService.getLendBookByIdBook(book.boo_id!, this.myUser.us_id).subscribe(
+            request => {
+              this.lendBookService.deleteLendBook(request.lenboo_id).subscribe(
+                request => {
+                  book.boo_state = statesBook[0].description
+                  this.bookService.updateBook(book)
+                  this.cd.detectChanges()
+                }
+                , error => { console.error(error) }
+              )
+            }, error => { console.error(error) }
+          )
+          this.cd.detectChanges()
+        }, error => {
+          console.error(error)
         }
       )
 

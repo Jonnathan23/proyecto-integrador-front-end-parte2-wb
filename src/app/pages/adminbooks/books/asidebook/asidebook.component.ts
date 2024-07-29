@@ -6,7 +6,7 @@ import { addLendBookError, errorInputs } from '../../../../../alerts/alerts';
 import { dates, statesBook } from '../../../../../assets/data/data';
 import { LoginserviceService } from '../../../../services/foruser/loginservice.service';
 import { LendbookhistoryService } from '../../../../services/history/lendbookhistory.service';
-import { ErrorFillEmpty, ErrorBookIsReserved } from '../../../../../errors/errors';
+import { ErrorFillEmpty, ErrorBookIsUsed } from '../../../../../errors/errors';
 import { formatDate } from '../../../../../funtions/funtions.format';
 
 @Component({
@@ -89,8 +89,7 @@ export class AsidebookComponent {
     if (this.lendBook.lenboo_inicial_date === '') throw new ErrorFillEmpty('Fecha no seleccionada')
     else if (this.lendBook.lenboo_limit_date === '') throw new ErrorFillEmpty('Fecha no seleccionada')
 
-    if (this.book.boo_state !== statesBook[0].description) throw new ErrorBookIsReserved('Libro reservado')
-
+      if (this.book.boo_state === statesBook[1].description) throw new ErrorBookIsUsed('Libro reservado')
   }
 
   async saveMyBook() {
@@ -107,11 +106,7 @@ export class AsidebookComponent {
 
     } catch (error) {
 
-      if (error instanceof ErrorFillEmpty) errorInputs()
-
-      else if (error instanceof ErrorBookIsReserved) addLendBookError()
-
-      else addLendBookError()
+      this.handleError(error)
     }
   }
 
@@ -124,7 +119,15 @@ export class AsidebookComponent {
         , error: (err) => console.error(err)
       })
     } catch (error) {
-
+      this.handleError(error)
     }
+  }
+
+  handleError(error: unknown) {
+    if (error instanceof ErrorFillEmpty) errorInputs()
+
+    else if (error instanceof ErrorBookIsUsed) addLendBookError()
+
+    else addLendBookError()
   }
 }
