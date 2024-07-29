@@ -136,13 +136,18 @@ export class AddbookComponent {
 
     if (isValidate) {
       const newBook = this.book as BookType
-      this.bookService.createBook(newBook).subscribe({
-        next: () => {
+      console.log()
+      this.bookService.createBook(newBook).subscribe(
+         () => {
           saveBook()
           this.clearInputs()
         }
-        , error: () => errorSave()
-      })
+        , error  => {
+          console.log(this.book)
+          console.log(error)
+          errorSave()
+        }
+      )
 
     } else {
       errorInputs()

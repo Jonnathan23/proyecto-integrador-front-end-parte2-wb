@@ -8,6 +8,7 @@ import { catchError, tap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class DatabookService {
+  
 
   url = 'http://localhost:8080/proyectobackend/bl-sv'
 
@@ -50,7 +51,7 @@ export class DatabookService {
   }
 
   deleteBook(id: number) {
-    return this.http.delete(`${this.url}/${id}`)
+    return this.http.delete(`${this.url}/books/${id}`)
   }
 
   private handleError(error: HttpErrorResponse): Observable<never> {
@@ -58,5 +59,4 @@ export class DatabookService {
   }
 
 }
-
 
