@@ -50,6 +50,7 @@ export class TopClient {
 
 // Estructura de una categoria
 export class CategoryType {
+    id?: number
     title?: string
     description?: string
     image?: string

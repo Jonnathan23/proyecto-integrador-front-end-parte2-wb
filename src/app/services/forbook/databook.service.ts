@@ -3,6 +3,7 @@ import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { AdminBook, BookType, StateBook } from '../../../assets/models/models';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError, tap } from 'rxjs/operators';
+import { environment } from '../../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
@@ -10,10 +11,9 @@ import { catchError, tap } from 'rxjs/operators';
 export class DatabookService {
   
 
-  url = 'http://localhost:8080/proyectobackend/bl-sv'
+  url = `${environment.domain}`
 
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) {}
 
   //|---- Funciones de busqueda ----|
   searchCategoryBooks(category: string) {

@@ -1,13 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MyBooks } from '../../../assets/models/models';
+import { environment } from '../../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MybookserviceService {
 
-  url = 'http://localhost:8080/proyectobackend/bl-sv'
+  url = `${environment.domain}`
   constructor(private http: HttpClient) { }
 
   getMyBooks(id:number) {

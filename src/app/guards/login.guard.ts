@@ -17,6 +17,7 @@ export const authGuard: CanActivateFn = (route, state) => {
         const userLocal = loginService.getUserStorage()!;
 
         if (userLocal.us_id) {
+            
             auth = true;
         } else {
             auth = user.us_id ? true : false;

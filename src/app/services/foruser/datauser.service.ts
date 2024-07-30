@@ -3,6 +3,7 @@ import { LoginUser, TokenEncripted, TokenUser, UserType } from '../../../assets/
 import { BehaviorSubject, catchError, Observable, tap, throwError } from 'rxjs';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { jwtDecode } from 'jwt-decode';
+import { environment } from '../../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ import { jwtDecode } from 'jwt-decode';
 export class DatauserService {
   private usersSubject = new BehaviorSubject<UserType[]>([]);
   users$: Observable<UserType[]> = this.usersSubject.asObservable();
-  url = 'http://localhost:8080/proyectobackend/bl-sv'
+  url = `${environment.domain}`
 
   constructor(private http: HttpClient) { }
 
@@ -49,7 +50,7 @@ export class DatauserService {
     const request = jwtDecode(token) as TokenEncripted
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
-    });    
+    });
     return this.http.get<UserType>(`${this.url}/users/${request.id}`, { headers })
   }
 
