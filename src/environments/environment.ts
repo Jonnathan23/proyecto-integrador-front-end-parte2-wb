@@ -1,3 +1,3 @@
 export const environment = {
-    domain: 'http://localhost:8080/proyectobackend/bl-sv'
+    domain: 'https://b822-186-66-178-174.ngrok-free.app/proyectobackend/bl-sv'
 };
