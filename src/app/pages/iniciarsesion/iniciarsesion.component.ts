@@ -17,8 +17,7 @@ export class IniciarsesionComponent {
 
   constructor(private loginService: LoginserviceService) { }
 
-  /**
-   * TODO: falta el 'loginService'
+  /** 
    * @param form 
    */
   login(form: NgForm) {

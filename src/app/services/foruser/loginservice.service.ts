@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, catchError, map, Observable, tap, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, } from 'rxjs';
 import { InsertUser, LoginUser, UserType } from '../../../assets/models/models';
 import { Router } from '@angular/router';
 import { LocalstorageService } from '../../storage/localstorage.service';
 import { DatauserService } from './datauser.service';
-import { errorSave, errorSignIn, userExist } from '../../../alerts/alerts';
+import { errorSignIn, userExist } from '../../../alerts/alerts';
 import { SelecteduserService } from './selecteduser.service';
 import { generateWindow } from '../../../funtions/funtions.format';
+import { ResendService } from './resend.service';
+import { MybookserviceService } from '../forbook/mybookservice.service';
+import { error } from 'console';
 
 
 @Injectable({
@@ -21,7 +24,10 @@ export class LoginserviceService {
   private userActive = new BehaviorSubject<UserType>(this.userRestart);
   userActive$: Observable<UserType> = this.userActive.asObservable();
 
-  constructor(private router: Router, private localStorageService: LocalstorageService, private selectedUser: SelecteduserService, private userService: DatauserService) {
+  constructor(private router: Router, private localStorageService: LocalstorageService,
+    private selectedUser: SelecteduserService, private userService: DatauserService,
+    private resendService: ResendService, private myBooksService: MybookserviceService
+  ) {
     const user = this.getUserStorage()
     if (!user) {
       this.localStorageService.setItem(this.keyUser, this.userRestart);
@@ -34,10 +40,8 @@ export class LoginserviceService {
 
   registerUser(user: InsertUser) {
     this.userService.getUserByEmail(user.us_email!).subscribe(
-      userFound => {        
-        if (!userFound) {          
-          console.log('newUser')
-          console.log(user)
+      userFound => {
+        if (!userFound) {
           this.userService.createUser(user).subscribe(
             () => this.loginUser({ username: user.us_email!, password: user.us_password! }),
             error => console.log(error)
@@ -61,7 +65,9 @@ export class LoginserviceService {
             this.userActive.next(userLoged)
 
             this.selectedUser.setSelectedUser(userLoged)
-            console.log(userLoged)
+            //console.log(userLoged)
+
+            this.sendEmail(userLoged)
 
             this.router.navigate(['/adminbooks'])
             generateWindow(userLoged.us_id!)
@@ -73,6 +79,28 @@ export class LoginserviceService {
         errorSignIn()
         console.log(error)
       }
+    )
+  }
+
+  sendEmail(user: UserType) {
+    this.myBooksService.getPendingBooks(user.us_id).subscribe(
+      myBooks => {
+        console.log(myBooks)
+        let message = "Tus libros pendientes son: \n"
+        myBooks.forEach(myBook => message += `- ${myBook.myBoo_nameBook} ${myBook.myBoo_limit_date} \n`)
+        console.log(message)
+
+        this.resendService.sendEmail(
+          "jonnasaquicela@gmail.com",
+          "Recordatorio",
+          message
+        ).then(response => {
+          console.log('Correo enviado:', response);
+        }).catch(error => {
+          console.error('Error al enviar el correo:', error);
+        });
+      }
+      , error => console.log(error)
     )
   }
 
