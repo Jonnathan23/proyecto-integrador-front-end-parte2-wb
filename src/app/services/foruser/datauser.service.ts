@@ -16,7 +16,12 @@ export class DatauserService {
   constructor(private http: HttpClient) { }
 
   getUserByEmail(email: string) {
-    return this.http.get<UserType>(`${this.url}/users/email/${email}`)
+    return this.http.get<UserType>(`${this.url}/users/email/${email}`).pipe(
+      catchError(error => {
+        console.error('Error fetching user by email:', error);
+        return throwError(() => new Error(error.message));
+      })
+    );
   }
 
   getUsers() {
@@ -51,7 +56,7 @@ export class DatauserService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    return this.http.get<UserType>(`${this.url}/users/${request.id}`, { headers })
+    return this.http.get<UserType>(`${this.url}/users/info`, { headers })
   }
 
   getToken(user: LoginUser) {

@@ -35,15 +35,15 @@ export class LoginserviceService {
   registerUser(user: InsertUser) {
     this.userService.getUserByEmail(user.us_email!).subscribe(
       userFound => {        
-        if (!userFound) {          
-          console.log('newUser')
-          console.log(user)
+        if (userFound && userFound.us_id) {
+          userExist();
+        } else {
+          console.log('newUser');
+          console.log(user);
           this.userService.createUser(user).subscribe(
             () => this.loginUser({ username: user.us_email!, password: user.us_password! }),
             error => console.log(error)
-          )
-        } else {
-          userExist()
+          );
         }
 
       }
@@ -54,9 +54,10 @@ export class LoginserviceService {
   loginUser(user: LoginUser) {
     this.userService.getToken(user).subscribe(
       response => {
+        console.log(response.jwt)
 
-        response.jwt && this.userService.getLoginUser(response.jwt!).subscribe({
-          next: (userLoged) => {
+        response.jwt && this.userService.getLoginUser(response.jwt!).subscribe(
+          (userLoged) => {
             this.localStorageService.setItem(this.keyUser, userLoged)
             this.userActive.next(userLoged)
 
@@ -66,8 +67,11 @@ export class LoginserviceService {
             this.router.navigate(['/adminbooks'])
             generateWindow(userLoged.us_id!)
           }
-          , error: () => errorSignIn()
-        })
+          , error => {
+            console.log(error)
+            errorSignIn()
+          }
+        )
       },
       error => {
         errorSignIn()
